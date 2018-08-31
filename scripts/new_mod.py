@@ -36,9 +36,9 @@ def updatePersonalInfo(configFile, licenseText):
     with open(configFile) as f:
         configText = json.load(f)
     today=str(datetime.datetime.now())
-    licenseText.replace(':xxx',today,1)
-    licenseText.replace(':xxx',str(configText['Author']),1)
-    licenseText.replace(':xxx',str(configText['Company']),1)
+    licenseText = licenseText.replace(':xxx',today,1)
+    licenseText = licenseText.replace(':xxx',str(configText['Author']),1)
+    licenseText = licenseText.replace(':xxx',str(configText['Company']),1)
     logging.debug(licenseText)
     return licenseText
 
