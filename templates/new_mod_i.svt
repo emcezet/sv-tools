@@ -1,0 +1,37 @@
+module module_one#(
+    // parameter
+    )(
+    // IN
+    clk_rst.sink clkif
+    // INOUT
+
+    // OUT
+
+    );
+
+///////////////////////////////////////////////////////////////////////////////
+// Signal declarations.
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+always_comb
+begin : comb_process
+
+end
+
+// By default, it is assumed that an asynch high-level reset is used.
+always_ff @ ( posedge clkif.CLK or posedge clkif.ARST )
+begin : synch_process
+    if ( clkif.ARST )
+        begin
+
+        end
+    else
+        begin
+
+        end
+end
+
+endmodule
+

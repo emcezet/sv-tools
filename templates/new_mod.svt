@@ -1,0 +1,41 @@
+module module_one#(
+    // parameter
+    )(
+    // IN
+    input clk,
+    input arst,
+    input arst_n,
+    input srst,
+    input srst_n
+    // INOUT
+
+    // OUT
+
+    );
+
+///////////////////////////////////////////////////////////////////////////////
+// Signal declarations.
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+always_comb
+begin : comb_process
+
+end
+
+// By default, it is assumed that an asynch high-level reset is used.
+always_ff @ ( posedge clk or posedge arst )
+begin : synch_process
+    if ( arst )
+        begin
+
+        end
+    else
+        begin
+
+        end
+end
+
+endmodule
+
