@@ -1,0 +1,75 @@
+\documentclass{article}
+
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{geometry}
+\geometry{legalpaper, margin=1in}
+
+\title{SystemVerilog Tools in Python}
+\author{Michał Czyż  \\
+    PG ETI UE CHIP \\
+    \and 
+    The Other Dude \\
+    His Company / University \\
+    }
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\begin{abstract}
+Documentation for SystemVerilog Tools project available at:
+\begin{verbatim}
+    https:www.github.com/emcezet/sv-tools
+\end{verbatim}
+
+\end{abstract}
+
+\section{Introduction}
+{ The goal of project is to develop a SystemVerilog (SV) parsing engine and
+provide scripts for simple module generation, instantiation in both
+named ports and interface modports styles. }
+
+\section{Acceptable constructs in SystemVerilog.}
+
+\subsection{Module declaration.}
+{ The basic building block of SystemVerilog language is a module. Any SV module
+consists of a name, a list of parameters and a list of ports. An example is
+provided below: }
+
+\lstinputlisting[language = verilog]{../SVEngine/SVExamples/basic_module.sv}
+
+{ Keywords \textbf{module} and \textbf{endmodule} are always at the start and
+ the end of the module. After the keyword \textbf{module} a module name is given.
+ It is optional to end the module declaration with \textbf{endmodule : module\_name}.
+ The \textbf{\#} sign marks the beginning of list of parameters, which is comma separated.
+ List of parameters is optional. An empty list is also accepted.}
+
+{ Port list is also a comma separated list of entries. Each port requires direction
+and name. There are three supported directions: \textbf{input}, \textbf{output},
+\textbf{inout}. Bus signals have width encoded in square brackets. Interfaces are
+used via modports. The declaration is \textbf{interface\_name.modport\_name port\_name.} }
+
+{ SV supports C-style comments and macros. The only difference is that used macro
+requires a tick. Whitespaces are ignored.}
+
+\subsection{Module instantiation.}
+
+\subsection{Interface declaration.}
+
+\section{Usage.}
+{ All scripts support -h and --help parameters for usage help.}
+
+\end{document}
