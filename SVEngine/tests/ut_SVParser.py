@@ -21,20 +21,20 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
+import logging
+import os
+import sys ; sys.path.insert(0,"../")
+from SVParser import SVParser
+from SVSearcher import SVSearcher
 
-class SVInterface:
-
-    def __init__( self ):
-        self.name = ''
-
-    def init_args( self, name, parameters, signals, modports ):
-        self.name = name
-        self.parameters = parameters
-        self.signals = signals
-        self.modports = modports
-
-    def debug_display( self ):
-        print 'Name : ' + str( self.name )
-        print 'Parameters : ' + str( self.parameters )
-        print 'Signals : ' + str( self.signals )
-        print 'Modports : ' + str( self.modports )
+logging.basicConfig(level=logging.DEBUG)
+# Create object of class under test (CUT).
+searcher = SVSearcher()
+searcher.debug_display()
+dirUnderTest = os.path.join( os.getcwd() , '../SVExamples/')
+searcher.discoverSVFiles( dirUnderTest )
+exampleFile = searcher.SVFiles[0]
+logging.debug( 'Example file : ' + str ( exampleFile ))
+# Create object of class under test (CUT).
+parser = SVParser( exampleFile )
+parser.debug_display()

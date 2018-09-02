@@ -22,19 +22,37 @@
 
 #!/usr/bin/env python
 
-class SVInterface:
+import logging
+import os
+import sys
 
-    def __init__( self ):
-        self.name = ''
+from SVModule import SVModule
 
-    def init_args( self, name, parameters, signals, modports ):
-        self.name = name
-        self.parameters = parameters
-        self.signals = signals
-        self.modports = modports
+class SVParser:
+
+    def __init__( self, filePath ):
+        if not os.path.isfile( filePath ):
+            raise Exception( 'Provided location is not a file.' )
+        fileP = open( filePath, 'r')
+        lines = fileP.readlines()
+        stripLines = []
+        for line in lines:
+            line = line.rstrip('\n')
+            line = line.rstrip('\r')
+            line = line.rstrip(' ')
+            line = line.strip(' ')
+            if len( line ) > 1 :
+                if line[0] == '/':
+                    if line[1] == '/':
+                        # It is a comment
+                        continue
+            if len( line ) == 0 :
+                # Line is empty
+                continue
+            stripLines.append( line )
+        self.striplines = stripLines
+        self.module = SVModule()
+        self.interface = SVInterface()
 
     def debug_display( self ):
-        print 'Name : ' + str( self.name )
-        print 'Parameters : ' + str( self.parameters )
-        print 'Signals : ' + str( self.signals )
-        print 'Modports : ' + str( self.modports )
+        print 'Lines : ' + str( self.striplines )

@@ -22,13 +22,12 @@
 
 #!/usr/bin/env python
 
-#
-#
-#
-
 class SVModule:
 
-    def __init__( self, name, parameters, ports ):
+    def __init__( self):
+        self.name = ''
+
+    def init_args( self, name, parameters, ports ):
         self.name = name
         self.parameters = parameters
         self.ports = ports

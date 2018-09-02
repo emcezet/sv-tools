@@ -34,6 +34,6 @@ ports = { 'a_in' : ( 'input' , 8 ),
           'clk_if' : ( 'CLK_IF' , 'sink')
         }
 
-module = SVModule( name, parameters, ports)
-
+module = SVModule()
+module.init_args( name, parameters, ports )
 module.debug_display()
