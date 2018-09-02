@@ -38,3 +38,9 @@ logging.debug( 'Example file : ' + str ( exampleFile ))
 # Create object of class under test (CUT).
 parser = SVParser( exampleFile )
 parser.debug_display()
+
+for file in searcher.SVFiles:
+    logging.debug( 'File : ' + str ( file ))
+    parser = SVParser( file )
+    parser.debug_display()
+    #input('Press ENTER')

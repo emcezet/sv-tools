@@ -25,7 +25,10 @@
 class SVInterface:
 
     def __init__( self ):
-        self.name = ''
+        self.name = None
+        self.parameters = None
+        self.signals = None
+        self.modports = None
 
     def init_args( self, name, parameters, signals, modports ):
         self.name = name
@@ -34,7 +37,8 @@ class SVInterface:
         self.modports = modports
 
     def debug_display( self ):
-        print 'Name : ' + str( self.name )
-        print 'Parameters : ' + str( self.parameters )
-        print 'Signals : ' + str( self.signals )
-        print 'Modports : ' + str( self.modports )
+        className = str( self.__class__.__name__ )
+        print className + ' : Name : ' + str( self.name )
+        print className + ' : Parameters : ' + str( self.parameters )
+        print className + ' : Signals : ' + str( self.signals )
+        print className + ' : Modports : ' + str( self.modports )

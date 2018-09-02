@@ -25,7 +25,9 @@
 class SVModule:
 
     def __init__( self):
-        self.name = ''
+        self.name = None
+        self.parameters = None
+        self.ports = None
 
     def init_args( self, name, parameters, ports ):
         self.name = name
@@ -33,6 +35,7 @@ class SVModule:
         self.ports = ports
 
     def debug_display( self ):
-        print 'Name : ' + str( self.name )
-        print 'Parameters : ' + str( self.parameters )
-        print 'Ports : ' + str( self.ports )
+        className = str( self.__class__.__name__ )
+        print className + ' : Name : ' + str( self.name )
+        print className + ' : Parameters : ' + str( self.parameters )
+        print className + ' : Ports : ' + str( self.ports )
