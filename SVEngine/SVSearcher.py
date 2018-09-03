@@ -31,8 +31,9 @@ class SVSearcher:
         self.SVFiles = []
 
     def debug_display( self ):
-        print 'SV files : ' + str( self.SVFiles )
-        print 'Number of SV files : ' + str( len( self.SVFiles ))
+        className = str( self.__class__.__name__ )
+        logging.debug( className + ': SV files : ' + str( self.SVFiles ))
+        logging.debug( className + ': Number of SV files : ' + str( len( self.SVFiles )))
 
     def discoverSVFiles( self, projectDir ):
         if not os.path.isdir( projectDir ):

@@ -33,16 +33,18 @@ from SVInterface import SVInterface
 
 class SVParser:
 
+    def __init__( self ):
+        self.joinLines = ''
+        self.module = SVModule()
+        self.interface = SVInterface()
+
     def debug_display( self ):
         className = str( self.__class__.__name__ )
-        print className + ': Lines : ' + str( self.joinLines )
+        logging.debug( className + ': Lines : ' + str( self.joinLines ))
         self.module.debug_display()
         self.interface.debug_display()
 
-    def parseFile():
-        return True
-
-    def __init__( self, filePath ):
+    def parseFile( self, filePath ):
         if not os.path.isfile( filePath ):
             raise Exception( 'Provided location is not a file.' )
         rawLines = readLinesFromFile( filePath )
@@ -50,6 +52,6 @@ class SVParser:
         noCommentLines = removeDoubleSlashComments( stripLines )
         joinLinesComment = joinLinesIntoText( noCommentLines )
         self.joinLines = removeSlashStarComments( joinLinesComment )
-        self.joinLines = removeModuleBody(self.joinLines)
+        self.joinLines = removeModuleBody( self.joinLines )
         self.module = SVModule()
         self.interface = SVInterface()

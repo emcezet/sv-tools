@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
+import logging
 
 class SVInterface:
 
@@ -38,7 +39,7 @@ class SVInterface:
 
     def debug_display( self ):
         className = str( self.__class__.__name__ )
-        print className + ' : Name : ' + str( self.name )
-        print className + ' : Parameters : ' + str( self.parameters )
-        print className + ' : Signals : ' + str( self.signals )
-        print className + ' : Modports : ' + str( self.modports )
+        logging.debug( className + ' : Name : ' + str( self.name ))
+        logging.debug( className + ' : Parameters : ' + str( self.parameters ))
+        logging.debug( className + ' : Signals : ' + str( self.signals ))
+        logging.debug( className + ' : Modports : ' + str( self.modports ))

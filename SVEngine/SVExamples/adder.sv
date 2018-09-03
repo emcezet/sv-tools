@@ -23,11 +23,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+
+/*
+ * Multi -line comment
+ *
+ *
+ *
+ */
+
 module module_one#(
     // parameter
     )(
     // IN
-    input clk,
+    input clk, /* This is also a comment */
     input arst,
     input arst_n,
     input srst,
@@ -62,5 +70,11 @@ begin : synch_process
         end
 end
 
+/*
+ * Multi -line comment
+ *
+ *
+ *
+ */
 endmodule
 

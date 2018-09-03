@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
+import logging
 
 class SVModule:
 
@@ -36,6 +37,6 @@ class SVModule:
 
     def debug_display( self ):
         className = str( self.__class__.__name__ )
-        print className + ' : Name : ' + str( self.name )
-        print className + ' : Parameters : ' + str( self.parameters )
-        print className + ' : Ports : ' + str( self.ports )
+        logging.debug( className + ' : Name : ' + str( self.name ))
+        logging.debug( className + ' : Parameters : ' + str( self.parameters ))
+        logging.debug( className + ' : Ports : ' + str( self.ports ))

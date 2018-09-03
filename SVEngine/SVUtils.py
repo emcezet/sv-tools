@@ -35,10 +35,12 @@ import re
 def stripLineWhiteChars( line ):
     if not isinstance( line, basestring ):
         raise Exception( 'Not a string was passed.' )
+    logging.debug( 'Method:stripLineWhiteChars:BeforeStrip:Line = ' + line )
     line = line.rstrip( '\n' )
     line = line.rstrip( '\r' )
     line = line.rstrip( ' ' )
     line = line.strip( ' ' )
+    logging.debug( 'Method:stripLineWhiteChars:AfterStrip:Line = ' + line )
     return line
 
 def stripLineListWhiteChars( lineList ):
@@ -91,19 +93,19 @@ def findPosPortBeginEnd( text ):
     return ( posPortBegin, posPortEnd )
 
 def extractModuleName():
-    return True
+    return moduleName
 
 def extractParameter():
-    return True
+    return ( parameterName, parameterValue )
 
-def extractParameterLine():
-    return True
+def extractParameterLineList ( text ):
+    return parameterLineList
 
-def extractPort():
-    return True
+def extractPort( portLine ):
+    return ( portDirection, portWidth, portName )
 
-def extractPortLine():
-    return True
+def extractPortLineList( text ):
+    return portLineList
 
 def removeModuleBody( text ):
     if not isinstance( text, basestring ):
@@ -116,7 +118,9 @@ def removeModuleBody( text ):
 def removeSlashStarComments( text ):
     if not isinstance( text, basestring ):
         raise Exception('Not a string was passed.')
+    logging.debug( 'Method:BeforeSub:removeSlashStarComments:text = ' + text)
     text = re.sub('/\*.*?\*/', '', text)
+    logging.debug( 'Method:AfterSub:removeSlashStarComments:text = ' + text)
     return text
 
 def readLinesFromFile( filePath ):
