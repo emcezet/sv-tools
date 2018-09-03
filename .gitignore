@@ -1,1 +1,11 @@
+# Python
+*.pyc
 
+# Latex
+*.aux
+*.dvi
+*.fls
+*.fdb_latexmk
+*.log
+*.synctex.gz
+*.toc
