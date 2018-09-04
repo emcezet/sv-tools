@@ -1,14 +1,21 @@
+# Status: do not ever, ever, ever, ever or ever use it on your design files.
+
+First release expected Oct 2018.
+
 # sv-tools
 
 Tools for SystemVerilog HDL development.
 
-# Setup
+## Setup
 
-Requires no installation. Python 2.7. Tested on CENTOS.
+Requires no installation.
 
-Run setup.py to update credentials: full name of the author and author's company.
+Python 3.6.5. 
+Tested on Windows Subsystem for Linux - Ubuntu 18.04.
 
-# Usage
+TODO: Run setup.py to update credentials: full name of the author and author's company for licensing templates.
+
+## Usage
 
 All scripts accept -h and --help for help messages constructed with argparse package.
 
@@ -24,10 +31,15 @@ Debug scripts:
     _util.py     - utility for debugging
     self_test.py - tests for scripts, which are very simple and will not be extended.
 
-SVEngine
+
+## SVEngine
+
+Engine is composed of following classes:
 
     SVModule    - xxx
     SVInterface - xxx
     SVParser    - xxx
     SVSearch    - xxx
     SVUtils     - xxx
+
+Unit tests were created with unittests module.
