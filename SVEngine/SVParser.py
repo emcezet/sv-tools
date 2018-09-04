@@ -38,11 +38,11 @@ class SVParser:
         self.module = SVModule()
         self.interface = SVInterface()
 
-    def debug_display( self ):
+    def debugDisplay( self ):
         className = str( self.__class__.__name__ )
         logging.debug( className + ': Lines : ' + str( self.joinLines ))
-        self.module.debug_display()
-        self.interface.debug_display()
+        self.module.debugDisplay()
+        self.interface.debugDisplay()
 
     def parseFile( self, filePath ):
         rawLines = readLinesFromFile( filePath )

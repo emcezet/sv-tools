@@ -36,4 +36,4 @@ ports = { 'a_in' : ( 'input' , 8 ),
 
 module = SVModule()
 module.init_args( name, parameters, ports )
-module.debug_display()
+module.debugDisplay()

@@ -30,7 +30,7 @@ class SVSearcher:
     def __init__( self ):
         self.SVFiles = []
 
-    def debug_display( self ):
+    def debugDisplay( self ):
         className = str( self.__class__.__name__ )
         logging.debug( className + ': SV files : ' + str( self.SVFiles ))
         logging.debug( className + ': Number of SV files : ' + str( len( self.SVFiles )))

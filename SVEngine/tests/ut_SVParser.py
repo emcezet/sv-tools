@@ -43,7 +43,7 @@ else:
 
 # Create object of class under test (CUT).
 searcher = SVSearcher()
-searcher.debug_display()
+searcher.debugDisplay()
 dirUnderTest = os.path.join( os.getcwd() , '../SVExamples/')
 searcher.discoverSVFiles( dirUnderTest )
 
@@ -54,7 +54,7 @@ if( args.all ):
         # Create object of class under test (CUT).
         parser = SVParser()
         parser.parseFile( file )
-        parser.debug_display()
+        parser.debugDisplay()
 else:
     logging.debug( 'Testing against first discovered file in SVExamples' )
     file = searcher.SVFiles[0]
@@ -62,4 +62,4 @@ else:
     # Create object of class under test (CUT).
     parser = SVParser()
     parser.parseFile( file )
-    parser.debug_display()
+    parser.debugDisplay()

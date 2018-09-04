@@ -30,10 +30,10 @@ from SVSearcher import SVSearcher
 logging.basicConfig(level=logging.DEBUG)
 # Create object of class under test (CUT).
 searcher = SVSearcher()
-searcher.debug_display()
+searcher.debugDisplay()
 dirUnderTest = os.path.join( os.getcwd() , '../SVExamples/')
 #dirUnderTest = '../SVExamples/'
 logging.debug( 'dir Under Test = ' + str( dirUnderTest ))
 searcher.discoverSVFiles( dirUnderTest )
 logging.debug( 'After sv file discoveries.' )
-searcher.debug_display()
+searcher.debugDisplay()

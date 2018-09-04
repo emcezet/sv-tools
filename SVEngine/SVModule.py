@@ -35,7 +35,7 @@ class SVModule:
         self.parameters = parameters
         self.ports = ports
 
-    def debug_display( self ):
+    def debugDisplay( self ):
         className = str( self.__class__.__name__ )
         logging.debug( className + ' : Name : ' + str( self.name ))
         logging.debug( className + ' : Parameters : ' + str( self.parameters ))

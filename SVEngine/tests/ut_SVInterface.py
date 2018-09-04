@@ -39,4 +39,4 @@ modports = [ 'source',
 interface = SVInterface()
 interface.init_args( name, parameters, signals, modports )
 
-interface.debug_display()
+interface.debugDisplay()
