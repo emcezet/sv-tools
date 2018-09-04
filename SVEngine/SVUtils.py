@@ -36,9 +36,6 @@ def stripLineWhiteChars( line ):
     if not isinstance( line, basestring ):
         raise TypeError( 'String expected.' )
     logging.debug( 'Method:stripLineWhiteChars:BeforeStrip:Line = ' + line )
-    line = line.rstrip( '\n' )
-    line = line.rstrip( '\r' )
-    line = line.rstrip( ' ' )
     line = line.strip( ' ' )
     logging.debug( 'Method:stripLineWhiteChars:AfterStrip:Line = ' + line )
     return line
