@@ -45,8 +45,6 @@ class SVParser:
         self.interface.debug_display()
 
     def parseFile( self, filePath ):
-        if not os.path.isfile( filePath ):
-            raise Exception( 'Provided location is not a file.' )
         rawLines = readLinesFromFile( filePath )
         stripLines = stripLineListWhiteChars( rawLines )
         noCommentLines = removeDoubleSlashComments( stripLines )
