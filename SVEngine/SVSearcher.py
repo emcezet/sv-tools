@@ -27,25 +27,25 @@ import logging
 
 class SVSearcher:
 
-    def __init__( self ):
-        self.SVFiles = []
+    def __init__(self):
+        self.sv_Files = []
 
-    def debugDisplay( self ):
-        className = str( self.__class__.__name__ )
-        logging.debug( className + ': SV files : ' + str( self.SVFiles ))
-        logging.debug( className + ': Number of SV files : ' + str( len( self.SVFiles )))
+    def debug_display(self):
+        class_name = str(self.__class__.__name__)
+        logging.debug(class_name + ': sv_ files : ' + str(self.sv_Files))
+        logging.debug(class_name + ': Number of sv_ files : ' + str(len(self.sv_Files)))
 
-    def discoverSVFiles( self, projectDir ):
-        for root, dirs, files in os.walk( projectDir ):
+    def discover_sv_files(self, proj_dir):
+        for root, dirs, files in os.walk(proj_dir):
             for name in files:
-                logging.debug( 'Discovered file: ' + name )
-                pathToFile = os.path.join( root, name )
-                logging.debug( 'Path to the file is : ' + pathToFile )
-                splitName = name.rpartition('.')
-                logging.debug( 'Last element of split tuple : ' + splitName[-1] )
-                if splitName[-1] == 'sv':
-                    logging.debug( 'SV File found.')
-                    self.SVFiles.append( pathToFile )
+                logging.debug('Discovered file: ' + name)
+                path_to_file = os.path.join(root, name)
+                logging.debug('Path to the file is : ' + path_to_file)
+                split_name = name.rpartition('.')
+                logging.debug('Last element of split tuple : ' + split_name[-1])
+                if split_name[-1] == 'sv_':
+                    logging.debug('sv_ File found.')
+                    self.sv_Files.append(path_to_file)
             #for name in dirs:
-            #    logging.debug( 'Discovered dirs: ' + name )
-            #    logging.debug( 'Relative path to the dir is : ' + os.path.join( root, name ))
+            #    logging.debug('Discovered dirs: ' + name)
+            #    logging.debug('Relative path to the dir is : ' + os.path.join(root, name))

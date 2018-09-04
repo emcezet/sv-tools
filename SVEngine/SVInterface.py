@@ -21,25 +21,28 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
+
+
 import logging
+
 
 class SVInterface:
 
-    def __init__( self ):
+    def __init__(self):
         self.name = None
         self.parameters = None
         self.signals = None
         self.modports = None
 
-    def init_args( self, name, parameters, signals, modports ):
+    def init_args(self, name, parameters, signals, modports):
         self.name = name
         self.parameters = parameters
         self.signals = signals
         self.modports = modports
 
-    def debugDisplay( self ):
-        className = str( self.__class__.__name__ )
-        logging.debug( className + ' : Name : ' + str( self.name ))
-        logging.debug( className + ' : Parameters : ' + str( self.parameters ))
-        logging.debug( className + ' : Signals : ' + str( self.signals ))
-        logging.debug( className + ' : Modports : ' + str( self.modports ))
+    def debug_display(self):
+        class_name = str(self.__class__.__name__)
+        logging.debug(class_name + ' : Name : ' + str(self.name))
+        logging.debug(class_name + ' : Parameters : ' + str(self.parameters))
+        logging.debug(class_name + ' : Signals : ' + str(self.signals))
+        logging.debug(class_name + ' : Modports : ' + str(self.modports))

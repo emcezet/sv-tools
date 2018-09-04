@@ -22,34 +22,38 @@
 
 #!/usr/bin/env python
 
+
 import logging
 import os
 import sys
 import re
 
+
 from SVUtils import *
-from SVModule import SVModule
-from SVInterface import SVInterface
+from SVModule import *
+from SVInterface import *
+
 
 class SVParser:
 
-    def __init__( self ):
-        self.joinLines = ''
+    def __init__(self):
+        self.text = ''
         self.module = SVModule()
         self.interface = SVInterface()
 
-    def debugDisplay( self ):
-        className = str( self.__class__.__name__ )
-        logging.debug( className + ': Lines : ' + str( self.joinLines ))
-        self.module.debugDisplay()
-        self.interface.debugDisplay()
+    def debug_display(self):
+        class_name = str(self.__class__.__name__)
+        logging.debug(class_name + ': Lines : ' + str(self.join_lines))
+        self.module.debug_display()
+        self.interface.debug_display()
 
-    def parseFile( self, filePath ):
-        rawLines = readLinesFromFile( filePath )
-        stripLines = stripLineListWhiteChars( rawLines )
-        noCommentLines = removeDoubleSlashComments( stripLines )
-        joinLinesComment = joinLinesIntoText( noCommentLines )
-        self.joinLines = removeSlashStarComments( joinLinesComment )
-        self.joinLines = removeModuleBody( self.joinLines )
+    def parse_file(self, file_path):
+        lines_raw = read_lines_from_file(file_path)
+        lines_no_empty = remove_lines_empty(lines_raw)
+        lines_no_comment_slash = remove_comments_double_slash(lines_no_empty)
+        lines_join = join_lines(lines_no_comment_slash)
+        text_no_comment = remove_comments_slash_star(lines_join)
+        text_no_module_body = remove_module_body(text_no_comment)
+        self.text = text_no_module_body
         self.module = SVModule()
         self.interface = SVInterface()

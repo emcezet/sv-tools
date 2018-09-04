@@ -21,19 +21,19 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
-import sys ; sys.path.insert(0,"../")
-from SVModule import SVModule
 
+import logging
+import os
+import sys ; sys.path.insert(0,'../')
+from sv_Searcher import sv_Searcher
+
+logging.basicConfig(level=logging.DEBUG)
 # Create object of class under test (CUT).
-name = 'adder'
-parameters = { 'width' : 8,
-               'reg_output' : 'YES'
-             }
-ports = { 'a_in' : ( 'input' , 8 ),
-          'b_in' : ( 'output' , 'width' ),
-          'clk_if' : ( 'CLK_IF' , 'sink')
-        }
-
-module = SVModule()
-module.init_args( name, parameters, ports )
-module.debugDisplay()
+searcher = sv_Searcher()
+searcher.debug_display()
+dirUnderTest = os.path.join(os.getcwd() , '../sv_Examples/')
+#dirUnderTest = '../sv_Examples/'
+logging.debug('dir Under Test = ' + str(dirUnderTest))
+searcher.discoversv_Files(dirUnderTest)
+logging.debug('After sv_ file discoveries.')
+searcher.debug_display()

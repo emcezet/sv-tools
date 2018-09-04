@@ -21,19 +21,22 @@
 # SOFTWARE.
 
 #!/usr/bin/env python
+import sys ; sys.path.insert(0,"../")
+from sv_Interface import sv_Interface
 
-import logging
-import os
-import sys ; sys.path.insert(0,'../')
-from SVSearcher import SVSearcher
-
-logging.basicConfig(level=logging.DEBUG)
 # Create object of class under test (CUT).
-searcher = SVSearcher()
-searcher.debugDisplay()
-dirUnderTest = os.path.join( os.getcwd() , '../SVExamples/')
-#dirUnderTest = '../SVExamples/'
-logging.debug( 'dir Under Test = ' + str( dirUnderTest ))
-searcher.discoverSVFiles( dirUnderTest )
-logging.debug( 'After sv file discoveries.' )
-searcher.debugDisplay()
+name = 'big_interface'
+parameters = { 'width' : 8,
+               'reg_output' : 'YES'
+             }
+signals = { 'a' : 8,
+            'b' : 8
+          }
+modports = [ 'source',
+             'sink'
+           ]
+
+interface = sv_Interface()
+interface.init_args(name, parameters, signals, modports)
+
+interface.debug_display()

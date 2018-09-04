@@ -24,42 +24,42 @@
 import argparse
 import logging
 import os
-import sys ; sys.path.insert( 0, "../" )
-from SVParser import SVParser
-from SVSearcher import SVSearcher
+import sys ; sys.path.insert(0, "../")
+from sv_Parser import sv_Parser
+from sv_Searcher import sv_Searcher
 
-parser = argparse.ArgumentParser( description = '''Python script for generating
-         empty SystemVerilog modules.''' )
-parser.add_argument( '-a', '--all', action='store_true', help='''Run tests with
-       all SVExamples.''' )
-parser.add_argument( '-v','--verbose', action='store_true',help='''Set verbosity
-       level to debug.''' )
+parser = argparse.ArgumentParser(description = '''Python script for generating
+         empty SystemVerilog modules.''')
+parser.add_argument('-a', '--all', action='store_true', help='''Run tests with
+       all sv_Examples.''')
+parser.add_argument('-v','--verbose', action='store_true',help='''Set verbosity
+       level to debug.''')
 args = parser.parse_args()
 
-if( args.verbose ):
-    logging.basicConfig( level = logging.DEBUG )
+if(args.verbose):
+    logging.basicConfig(level = logging.DEBUG)
 else:
-    logging.basicConfig( level = logging.INFO )
+    logging.basicConfig(level = logging.INFO)
 
 # Create object of class under test (CUT).
-searcher = SVSearcher()
-searcher.debugDisplay()
-dirUnderTest = os.path.join( os.getcwd() , '../SVExamples/')
-searcher.discoverSVFiles( dirUnderTest )
+searcher = sv_Searcher()
+searcher.debug_display()
+dirUnderTest = os.path.join(os.getcwd() , '../sv_Examples/')
+searcher.discoversv_Files(dirUnderTest)
 
-if( args.all ):
-    logging.debug( 'Testing against all files in SVExamples' )
-    for file in searcher.SVFiles:
-        logging.debug( 'File : ' + str ( file ))
+if(args.all):
+    logging.debug('Testing against all files in sv_Examples')
+    for file in searcher.sv_Files:
+        logging.debug('File : ' + str (file))
         # Create object of class under test (CUT).
-        parser = SVParser()
-        parser.parseFile( file )
-        parser.debugDisplay()
+        parser = sv_Parser()
+        parser.parse_file(file)
+        parser.debug_display()
 else:
-    logging.debug( 'Testing against first discovered file in SVExamples' )
-    file = searcher.SVFiles[0]
-    logging.debug( 'File : ' + str ( file ))
+    logging.debug('Testing against first discovered file in sv_Examples')
+    file = searcher.sv_Files[0]
+    logging.debug('File : ' + str (file))
     # Create object of class under test (CUT).
-    parser = SVParser()
-    parser.parseFile( file )
-    parser.debugDisplay()
+    parser = sv_Parser()
+    parser.parse_file(file)
+    parser.debug_display()

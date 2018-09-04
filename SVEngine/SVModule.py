@@ -23,20 +23,21 @@
 #!/usr/bin/env python
 import logging
 
+
 class SVModule:
 
-    def __init__( self):
+    def __init__(self):
         self.name = None
         self.parameters = None
         self.ports = None
 
-    def init_args( self, name, parameters, ports ):
+    def init_args(self, name, parameters, ports):
         self.name = name
         self.parameters = parameters
         self.ports = ports
 
-    def debugDisplay( self ):
-        className = str( self.__class__.__name__ )
-        logging.debug( className + ' : Name : ' + str( self.name ))
-        logging.debug( className + ' : Parameters : ' + str( self.parameters ))
-        logging.debug( className + ' : Ports : ' + str( self.ports ))
+    def debug_display(self):
+        class_name = str(self.__class__.__name__)
+        logging.debug(class_name + ' : Name : ' + str(self.name))
+        logging.debug(class_name + ' : Parameters : ' + str(self.parameters))
+        logging.debug(class_name + ' : Ports : ' + str(self.ports))

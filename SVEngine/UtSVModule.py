@@ -22,21 +22,18 @@
 
 #!/usr/bin/env python
 import sys ; sys.path.insert(0,"../")
-from SVInterface import SVInterface
+from sv_Module import sv_Module
 
 # Create object of class under test (CUT).
-name = 'big_interface'
+name = 'adder'
 parameters = { 'width' : 8,
                'reg_output' : 'YES'
              }
-signals = { 'a' : 8,
-            'b' : 8
-          }
-modports = [ 'source',
-             'sink'
-           ]
+ports = { 'a_in' : ('input' , 8),
+          'b_in' : ('output' , 'width'),
+          'clk_if' : ('CLK_IF' , 'sink')
+        }
 
-interface = SVInterface()
-interface.init_args( name, parameters, signals, modports )
-
-interface.debugDisplay()
+module = sv_Module()
+module.init_args(name, parameters, ports)
+module.debug_display()
