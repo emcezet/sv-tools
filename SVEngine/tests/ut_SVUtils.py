@@ -116,7 +116,7 @@ def scoreTests():
                 testsFailed += 1
         except:
             logging.debug( 'Unit test was not implemented' )
-            raise Exception( 'Unit test was not implemented for function.' + function[0] )
+            raise NotImplementedError( 'Unit test was not implemented for function.' + function[0] )
     if( testsPassed == numTests and testsFailed == 0 ):
         testPass = True
     else:

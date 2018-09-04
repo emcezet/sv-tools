@@ -36,8 +36,6 @@ class SVSearcher:
         logging.debug( className + ': Number of SV files : ' + str( len( self.SVFiles )))
 
     def discoverSVFiles( self, projectDir ):
-        if not os.path.isdir( projectDir ):
-            raise Exception('Provided location is not a directory.')
         for root, dirs, files in os.walk( projectDir ):
             for name in files:
                 logging.debug( 'Discovered file: ' + name )

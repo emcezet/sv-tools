@@ -34,7 +34,7 @@ import re
 
 def stripLineWhiteChars( line ):
     if not isinstance( line, basestring ):
-        raise Exception( 'Not a string was passed.' )
+        raise TypeError( 'String expected.' )
     logging.debug( 'Method:stripLineWhiteChars:BeforeStrip:Line = ' + line )
     line = line.rstrip( '\n' )
     line = line.rstrip( '\r' )
@@ -45,22 +45,22 @@ def stripLineWhiteChars( line ):
 
 def stripLineListWhiteChars( lineList ):
     if not type( lineList ) is list:
-        raise Exception( 'Type list was expected.' )
+        raise TypeError( 'List expected.' )
     if len( lineList ) == 0:
-        raise Exception( 'Empty list was passed.' )
+        raise ValueError( 'Non-empty list expected.' )
     strippedList = []
     for line in lineList:
         line = stripLineWhiteChars( line )
         strippedList.append( line )
     if len( strippedList ) == 0:
-        raise Exception( 'No lines were left after stripping.' )
+        raise ValueError( 'File does not contain valid SV Code.' )
     return strippedList
 
 def joinLinesIntoText( lineList ):
     if not type( lineList ) is list:
-        raise Exception('Type list was expected.')
+        raise TypeError('List expected.')
     if len( lineList ) == 0:
-        raise Exception('Empty list was passed.')
+        raise ValueError('Non-empty list expected.')
     joinLines = ''
     for line in lineList:
         joinLines = joinLines + line
@@ -68,7 +68,7 @@ def joinLinesIntoText( lineList ):
 
 def findPosModuleBeginEnd( text ):
     if not isinstance( text, basestring ):
-        raise Exception('Not a string was passed.')
+        raise TypeError('String expected.')
     # It is assumed all comments were removed, therefore
     # word module will appear only once.
     posModuleBegin = text.find('module')
@@ -77,7 +77,7 @@ def findPosModuleBeginEnd( text ):
 
 def findPosParameterBeginEnd( text ):
     if not isinstance( text, basestring ):
-        raise Exception('Not a string was passed.')
+        raise TypeError('String expected.')
     ( posModuleBegin, posModuleEnd ) = findPosModuleBeginEnd( text )
     posParameterBegin = text.find('#', posModuleBegin, posModuleEnd )
     posParameterEnd = text.find(')', posParameterBegin, posModuleEnd )
@@ -85,7 +85,7 @@ def findPosParameterBeginEnd( text ):
 
 def findPosPortBeginEnd( text ):
     if not isinstance( text, basestring ):
-        raise Exception('Not a string was passed.')
+        raise TypeError('String expected.')
     ( posModuleBegin, posModuleEnd ) = findPosModuleBeginEnd( text )
     ( posParameterBegin, posParameterEnd ) = findPosParameterBeginEnd( text )
     posPortBegin = text.find('(', posParameterEnd, posModuleEnd )
@@ -109,7 +109,7 @@ def extractPortLineList( text ):
 
 def removeModuleBody( text ):
     if not isinstance( text, basestring ):
-        raise Exception('Not a string was passed.')
+        raise TypeError('String expected.')
     ( posModuleBegin , posModuleEnd ) = findPosModuleBeginEnd(text)
     ( posPortBegin , posPortEnd ) = findPosPortBeginEnd(text)
     text = text[:posPortEnd+2] + text[posModuleEnd:]
@@ -117,26 +117,24 @@ def removeModuleBody( text ):
 
 def removeSlashStarComments( text ):
     if not isinstance( text, basestring ):
-        raise Exception('Not a string was passed.')
+        raise TypeError('String expected.')
     logging.debug( 'Method:BeforeSub:removeSlashStarComments:text = ' + text)
     text = re.sub('/\*.*?\*/', '', text)
     logging.debug( 'Method:AfterSub:removeSlashStarComments:text = ' + text)
     return text
 
 def readLinesFromFile( filePath ):
-    if not os.path.isfile( filePath ):
-        raise Exception( 'Provided location is not a file.' )
     fileP = open( filePath, 'r')
     lines = fileP.readlines()
     if len( lines ) == 0:
-        raise Exception( 'File is empty.' )
+        raise ValueError('File does not contain valid SV Code.')
     return lines
 
 def removeEmptyLines( lineList ):
     if not type( lineList ) is list:
-        raise Exception('Type list was expected.')
+        raise TypeError('List expected.')
     if len( lineList ) == 0:
-        raise Exception('Empty list was passed.')
+        raise ValueError('Non-empty list expected.')
     newLineList = []
     for line in lineList:
         if len( line ) == 0:
@@ -147,9 +145,9 @@ def removeEmptyLines( lineList ):
 
 def removeDoubleSlashComments( lineList ):
     if not type( lineList ) is list:
-        raise Exception('Type list was expected.')
+        raise TypeError('List expected.')
     if len( lineList ) == 0:
-        raise Exception('Empty list was passed.')
+        raise ValueError('Non-empty list expected.')
     newLineList = []
     for line in lineList:
         if len( line ) < 2:
