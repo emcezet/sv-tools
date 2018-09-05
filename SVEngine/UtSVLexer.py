@@ -33,7 +33,7 @@ class UtSVUtils(unittest.TestCase):
 
     def test_comment_one_line(self):
         logging.debug('Start : test_comment_one_line.')
-        text_test_sv = 'module module_name#(parameter = 8)(input clk); some text endmodule'
+        text_test_sv = '`define TOP 5 module module_name#(parameter = 8.5)(input clk); some text endmodule'
         logging.debug('text_test_sv = ' + text_test_sv)
         logging.debug('Create object lexer.')
         lexer_sv = ply.lex.lex()
