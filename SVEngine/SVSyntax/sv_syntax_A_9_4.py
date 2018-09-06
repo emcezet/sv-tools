@@ -19,4 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+# All commented BNF Forms should be unchanged copies of Annex A of IEEE Standard.
+
 #!/usr/bin/env python3
+
+#import ply.yacc as yacc
+
+# A.9.4 White space
+# white_space ::= space | tab | newline | eof
+
+# Well, we defined t_ignore in lexer, so do we need it in parser? I think we do, but...
+def p_white_space(t):
+    '''white_space : space | tab | newline | eof'''

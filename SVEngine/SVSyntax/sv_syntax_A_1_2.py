@@ -20,10 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# All commented BNF Forms should be unchanged copies of Annex A of IEEE Standard.
+
 #!/usr/bin/env python3
 
 # A.1.2 SystemVerilog source text
 # source_text ::= [ timeunits_declaration ] { description }
+def p_source_text(t):
+    '''source_text : description'''
+
 # description ::=
 #   module_declaration
 #   | udp_declaration
@@ -33,12 +38,16 @@
 #   | { attribute_instance } package_item
 #   | { attribute_instance } bind_directive
 #   | config_declaration
+def p_description(t):
+    '''description : module_declaration'''
+
 # module_nonansi_header ::=
 #   { attribute_instance } module_keyword [ lifetime ] module_identifier
 #       { package_import_declaration } [ parameter_port_list ] list_of_ports ;
 # module_ansi_header ::=
 #   { attribute_instance } module_keyword [ lifetime ] module_identifier
 #       { package_import_declaration }1 [ parameter_port_list ] [ list_of_port_declarations ] ;
+
 # module_declaration ::=
 #   module_nonansi_header [ timeunits_declaration ] { module_item }
 #       endmodule [ : module_identifier ]
@@ -48,7 +57,12 @@
 #       [ timeunits_declaration ] { module_item } endmodule [ : module_identifier ]
 #   | extern module_nonansi_header
 #   | extern module_ansi_header
+def p_module_declaration(t):
+    '''module_declaration : module_keyword module_identifier endmodule'''
+
 # module_keyword ::= module | macromodule
+def p_module_keyword(t):
+    '''module_keyword : module | macromodule'''
 # interface_declaration ::=
 #   interface_nonansi_header [ timeunits_declaration ] { interface_item }
 #       endinterface [ : interface_identifier ]
@@ -115,3 +129,6 @@
 #   | timeunit time_literal ; timeprecision time_literal ;
 #   | timeprecision time_literal ; timeunit time_literal ;
 
+def p_error(t):
+    if not t:
+        print("SYNTAX ERROR AT EOF")

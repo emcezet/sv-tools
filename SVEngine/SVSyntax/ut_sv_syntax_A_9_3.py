@@ -1,6 +1,6 @@
 # MIT License
 # 
-# Copyright (c) 2018 Michał Czyż
+# Copyright (c) 2018 Michal Czyz
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,4 +19,36 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
 #!/usr/bin/env python3
+
+
+import unittest
+import logging
+import ply.yacc as yacc
+import ply.lex as lex
+from SVLexer import *
+from SVParser import *
+from SVSyntax.sv_syntax_A_9_3 import *
+#from SVSyntax.sv_syntax_A_9_4 import *
+#from SVSyntax import *
+
+logging.basicConfig(level=logging.DEBUG)
+
+
+
+class ut_sv_syntax_A_9_3(unittest.TestCase):
+
+    def test_p_module_identifier(self):
+        logging.debug('test_p_module_identifier')
+        yacc.yaccdebug = True
+        sv_text = 'module name'
+        lexer_sv = ply.lex.lex()
+        lexer_sv.input(sv_text)
+        sv_parser.parse(sv_text)
+        return False
+
+
+if __name__ == '__main__':
+
+    unittest.main()

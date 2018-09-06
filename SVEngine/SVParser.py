@@ -22,10 +22,29 @@
 
 #!/usr/bin/env python3
 
-import ply.par
+
+import ply.yacc as yacc
+import ply.lex as lex
 import SVLexer
+from SVSyntax.sv_syntax_A_9_3 import *
+
+def p_error(p):
+    if not p:
+        print("SYNTAX ERROR AT EOF or sth went really bad.")
 
 tokens = SVLexer.tokens
+
+import profile
+
+sv_parser = yacc.yacc()
+
+def parse(data, debug=0):
+    sv_parser.error = 0
+    t = sv_parser.parse(data, debug=debug)
+    if sv_parser.error:
+        return None
+    return t
+
 
 # In 11.3.2 Operator precedence: listed in 'Table 11-2'.
 # From precedence highest to lowest.

@@ -52,7 +52,7 @@ if(args.all):
     for file in searcher.sv_Files:
         logging.debug('File : ' + str (file))
         # Create object of class under test (CUT).
-        parser = sv_Parser()
+        parser = sv_parser()
         parser.parse_file(file)
         parser.debug_display()
 else:
