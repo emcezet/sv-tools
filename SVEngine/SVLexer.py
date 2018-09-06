@@ -26,13 +26,12 @@
 # SVLexer.py
 # IEEE Standard for SystemVerilog—Unified Hardware Design,Specification, and Verification Language
 # Downloaded from : https://ieeexplore.ieee.org/document/8299595/, on 05.09.2018
+# Notation 'From number.number' refers to section of this standard.
 
 import logging
-
 import ply.lex
-#from ply.lex import LexToken
 
-# From 5.2 of IEEE(...):
+# From 5.2:
 # The types of lexical tokens in the language are as follows:
 # White space
 # Comment
@@ -43,20 +42,27 @@ import ply.lex
 # Keyword
 # * Maintain this order in this file.
 
-# Ignore tabs and spaces
-t_ignore = ' \t'
+# From 5.3
+# White space shall contain the characters for spaces, tabs, newlines, and formfeeds. These characters shall be
+# ignored except when they serve to separate other lexical tokens.
+#
+# token_ignore := space tab return_carriage new_line form_feed
+t_ignore = ' \t\r\n\f'
 
-# Comment
+# From 5.4
+# A one-line comment shall start with the two characters // and end with a newline character.
 def t_comment_one_line(t):
     r'//.*'
     return t
 
-def t_comment_multi_line(t):
+# From 5.4
+# A block comment shall start with /* and end with */.
+def t_comment_block(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
 
-# Operator
-# Operators
+# From 5.5
+# Operators are single-, double-, or triple-character sequences and are used in expressions.
 t_plus = r'\+'
 t_minus = r'-'
 t_times = r'\*'
@@ -77,6 +83,7 @@ t_le = r'<='
 t_ge = r'>='
 t_eq = r'=='
 t_ne = r'!='
+t_equals = r'='
 
 operators = (
     'plus',
@@ -100,6 +107,17 @@ operators = (
     'eq',
     'ne'
 )
+# From 5.6
+# An identifier is used to give an object a unique name so it can be referenced. An identifier is either a simple
+# identifier or an escaped identifier (see 5.6.1). A simple identifier shall be any sequence of letters, digits,
+# dollar signs ($), and underscore characters (_).
+# Warning : first implementation will only accept simple identifiers.
+def t_identifier(t):
+    #r'[A-Z][A-Z0-9]*'
+    r'[A-Za-z_][\w_]*'
+    if t.value in keywords:
+        t.type = t.value
+    return t
 
 # Delimiters
 t_lparen = r'\('
@@ -131,7 +149,7 @@ delimiters = (
 )
 
 # Assignment operators
-t_equals = r'='
+
 
 # Special char
 t_pound = r'\#'
@@ -195,12 +213,7 @@ def t_newline(t):
     t.lexer.lineno += t.value.count("\n")
     return t
 
-def t_identifier(t):
-    #r'[A-Z][A-Z0-9]*'
-    r'[A-Za-z_][\w_]*'
-    if t.value in keywords:
-        t.type = t.value
-    return t
+
 
 
 def t_error(t):
