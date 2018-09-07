@@ -38,6 +38,7 @@ import profile
 
 sv_parser = yacc.yacc()
 
+
 def parse(data, debug=0):
     sv_parser.error = 0
     t = sv_parser.parse(data, debug=debug)
@@ -92,31 +93,6 @@ def parse(data, debug=0):
 # — Packed array bit-select, part-select, element, or slice
 # — Unpacked array element bit-select or part-select, element, or slice
 # — A call to a user-defined function, system-defined function, or method that returns any of the above
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # import logging
 # import os

@@ -29,7 +29,9 @@
 # Notation 'From number.number' refers to section of this standard.
 
 import logging
-import ply.lex
+
+#import ply.lex as lex
+from ply.lex import *
 
 # From 5.2:
 # The types of lexical tokens in the language are as follows:
@@ -63,8 +65,11 @@ def t_comment_block(t):
 
 # From 5.5
 # Operators are single-, double-, or triple-character sequences and are used in expressions.
+# Defined in order in which they appear in standard.
+# Unary operators
 t_plus = r'\+'
 t_minus = r'-'
+# Binary operators
 t_times = r'\*'
 t_divide = r'/'
 t_mod = r'%'
@@ -114,7 +119,7 @@ operators = (
 # Warning : first implementation will only accept simple identifiers.
 def t_identifier(t):
     #r'[A-Z][A-Z0-9]*'
-    r'[A-Za-z_][\w_]*'
+    r'[A-Za-z_0-9][\w_$]*'
     if t.value in keywords:
         t.type = t.value
     return t
@@ -161,6 +166,8 @@ t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
 t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
 
 # String literal
+# From A.8.8:
+# string_literal ::= " { Any_ASCII_Characters } "
 t_sconst = r'\"([^\\\n]|(\\.))*?\"'
 
 # Character constant 'c' or L'c'
@@ -203,11 +210,6 @@ keywords = ( 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always
 )
 
 
-# Tokens
-tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'fconst',\
-                                  'iconst', 'cconst', 'sconst')
-
-
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
@@ -217,3 +219,27 @@ def t_newline(t):
 def t_error(t):
     print('Illegal character' + t.value[0])
     t.lexer.skip(1)
+
+# Tokens
+tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
+          'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst')
+
+SVLexer = lex()
+
+
+# Let's add some utility to lex. Method runmain prints tokens via:
+# while True:
+#        tok = _token()
+#        if not tok:
+#            break
+#        sys.stdout.write('(%s,%r,%d,%d)\n' % (tok.type, tok.value, tok.lineno, tok.lexpos))
+# I want to put these tokens in a list for testing purposes.
+
+def get_tokens(lexer):
+    _tokens = []
+    while True:
+        _token = lexer.token()
+        if not _token:
+            break
+        _tokens.append(_token)
+    return _tokens

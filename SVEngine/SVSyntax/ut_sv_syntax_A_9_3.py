@@ -43,8 +43,7 @@ class ut_sv_syntax_A_9_3(unittest.TestCase):
         logging.debug('test_p_module_identifier')
         yacc.yaccdebug = True
         sv_text = 'module name'
-        lexer_sv = ply.lex.lex()
-        lexer_sv.input(sv_text)
+        SVLexer.input(sv_text)
         sv_parser.parse(sv_text)
         return False
 
