@@ -38,60 +38,48 @@ def check_identifier_all(_tokens_list):
             return False
     return True
 
+def test_routine_basic(test_text_sv = ''):
+    SVLexer.input(test_text_sv)
+    _tokens_list = get_tokens(SVLexer)
+    logging.debug('\n_tokens_list = ' + str(_tokens_list))
+    _values = [token.value for token in _tokens_list]
+    return _tokens_list, _values
+
 class UtSVLexer(unittest.TestCase):
 
     def test_identifier(self):
-        test_text_sv = '11A s22imple identifier shall be    any SEQUENCe of letters dig123its dollar signs$ und underscore_characters'
-        expected_list = test_text_sv.split()
-        SVLexer.input(test_text_sv)
-        _tokens_list = get_tokens(SVLexer)
-        logging.debug('\n_tokens_list = ' + str(_tokens_list))
-        _values = [token.value for token in _tokens_list]
+        _test_text_sv = 'A1 s22imple identifier shall be    any SEQUENCe of letters dig123its dollar signs$ und underscore_characters'
+        expected_list = _test_text_sv.split()
+        _tokens_list, _values = test_routine_basic(test_text_sv = _test_text_sv)
         self.assertTrue(check_identifier_all(_tokens_list))
         self.assertTrue(check_equal(expected_list, _values))
 
     def test_comment_one_line(self):
-        test_text_sv = 'There are ids // This is a one line comment. We can use module keywords here. and or .'
+        _test_text_sv = 'There are ids // This is a one line comment. We can use module keywords here. and or .'
         expected_result = '// This is a one line comment. We can use module keywords here. and or .'
-        SVLexer.input(test_text_sv)
-        _tokens_list = get_tokens(SVLexer)
-        logging.debug('\n_tokens_list = ' + str(_tokens_list))
-        _values = [token.value for token in _tokens_list]
-        logging.debug('len(_values) = ' + str(len(_values)))
+        _tokens_list ,_values = test_routine_basic(test_text_sv = _test_text_sv)
         self.assertEqual(expected_result, _values[-1])
 
     def test_comment_block(self):
-        self.assertTrue(False)
-
-    def test_unary_operator(self):
-        test_text_sv = 'These are unary operators + - '
-        expected_result = ''
-        SVLexer.input(test_text_sv)
-        _tokens_list = get_tokens(SVLexer)
-        logging.debug('\n_tokens_list = ' + str(_tokens_list))
-        _values = [token.value for token in _tokens_list]
-        logging.debug('len(_values) = ' + str(len(_values)))
+        _test_text_sv = 'There are ids // This is a one line comment. We can use module keywords here. and or .'
+        expected_result = '// This is a one line comment. We can use module keywords here. and or .'
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
         self.assertEqual(expected_result, _values[-1])
         self.assertTrue(False)
 
+    def test_operator(self):
+        return True
+
     def test_newline(self):
-        test_text_sv = 'these are ids \n these ids are on NEW line'
+        _test_text_sv = 'these are ids \n these ids are on NEW line'
         expected_result = ''
-        SVLexer.input(test_text_sv)
-        _tokens_list = get_tokens(SVLexer)
-        logging.debug('\n_tokens_list = ' + str(_tokens_list))
-        _values = [token.value for token in _tokens_list]
-        logging.debug('len(_values) = ' + str(len(_values)))
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
         self.assertTrue(False)
 
     def test_literal_string(self):
-        test_text_sv = ' "This is a valid module string" '
+        _test_text_sv = ' "This is a valid module string" '
         expected_result = 'This is a valid module string'
-        SVLexer.input(test_text_sv)
-        _tokens_list = get_tokens(SVLexer)
-        logging.debug('\n_tokens_list = ' + str(_tokens_list))
-        _values = [token.value for token in _tokens_list]
-        logging.debug('len(_values) = ' + str(len(_values)))
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
         self.assertTrue(len(_values) == 1)
         self.assertEqual(_values[0],expected_result)
 

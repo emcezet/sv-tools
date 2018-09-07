@@ -66,60 +66,93 @@ def t_comment_block(t):
 # From 5.5
 # Operators are single-, double-, or triple-character sequences and are used in expressions.
 # Defined in order in which they appear in standard.
+# b is for bitwise, l is for logical
 # Unary operators
 t_plus = r'\+'
 t_minus = r'-'
+t_lnot = r'!'
+t_bnot = r'~'
+t_band = r'&'
+t_bnand = r'~&'
+t_bor = r'\|'
+t_bnor = r'~\|'
+t_bxor = r'\^'
+t_bnxor = r'~\^'
+t_bxnor = r'\^~'
 # Binary operators
+# t_plus = r'\+' # Repeated in spec.
+# t_minus = r'-' # Repeated in spec.
 t_times = r'\*'
 t_divide = r'/'
 t_mod = r'%'
-t_op_or = r'\|'
-t_op_and = r'&'
-t_op_not = r'~'
-t_op_xor = r'\^'
-t_lshift = r'<<'
-t_rshift = r'>>'
-t_lor = r'\|\|'
-t_land = r'&&'
-t_lnot = r'!'
-t_lt = r'<'
-t_gt = r'>'
-t_le = r'<='
-t_ge = r'>='
 t_eq = r'=='
 t_ne = r'!='
-t_equals = r'='
+t_seq = r'===' # Strict equal = seq
+t_nseq = r'!==' # Not strict equal = nseq
+t_weq = r'=\?=' # Wildcard equality operator
+t_nweg = r'!\?=' # Wildcard not equality operator
+t_land = r'&&'
+t_lor = r'\|\|'
+t_pow = r'\*\*'
+t_lt = r'<'
+t_nbass = r'<=' # Non-blocking assignment
+t_gt = r'>'
+t_ge = r'>='
+t_rshift = r'>>'
+t_lshift = r'<<'
+t_arshift = r'>>>'
+t_alshift = r'<<<'
+t_impl = r'->'
+t_equiv = r'<->'
+# Inc or dec ops
+t_inc = r'\+\+'
+t_dec = r'--'
 
 operators = (
     'plus',
     'minus',
+    'lnot',
+    'bnot',
+    'band',
+    'bnand',
+    'bor',
+    'bnor',
+    'bxor',
+    'bnxor',
+    'bxnor',
     'times',
     'divide',
     'mod',
-    'op_or',
-    'op_and',
-    'op_not',
-    'op_xor',
-    'lshift',
-    'rshift',
-    'lor',
-    'land',
-    'lnot',
-    'lt',
-    'gt',
-    'le',
-    'ge',
     'eq',
-    'ne'
-)
+    'ne',
+    'seq',
+    'nseq',
+    'weq',
+    'nweg',
+    'land',
+    'lor',
+    'pow',
+    'lt',
+    'nbass',
+    'gt',
+    'ge',
+    'rshift',
+    'lshift',
+    'arshift',
+    'alshift',
+    'impl',
+    'equiv',
+    'inc',
+    'dec'
+    )
+
 # From 5.6
 # An identifier is used to give an object a unique name so it can be referenced. An identifier is either a simple
 # identifier or an escaped identifier (see 5.6.1). A simple identifier shall be any sequence of letters, digits,
 # dollar signs ($), and underscore characters (_).
 # Warning : first implementation will only accept simple identifiers.
 def t_identifier(t):
-    #r'[A-Z][A-Z0-9]*'
-    r'[A-Za-z_0-9][\w_$]*'
+    r'[A-Za-z_][A-Za-z0-9_$]*'
     if t.value in keywords:
         t.type = t.value
     return t
@@ -226,7 +259,6 @@ tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', '
 
 SVLexer = lex()
 
-
 # Let's add some utility to lex. Method runmain prints tokens via:
 # while True:
 #        tok = _token()
@@ -243,3 +275,7 @@ def get_tokens(lexer):
             break
         _tokens.append(_token)
     return _tokens
+
+def count_tokens_type(_tokens_list, type):
+    _values = [token.value for token in _tokens_list]
+    return _values.count(type)
