@@ -54,6 +54,7 @@ t_ignore = ' \t\r\n\f'
 # A one-line comment shall start with the two characters // and end with a newline character.
 def t_comment_one_line(t):
     r'//.*'
+    t.lexer.lineno += t.value.count('\n')
     return t
 
 
@@ -62,7 +63,7 @@ def t_comment_one_line(t):
 def t_comment_block(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
-
+    return t
 
 # From 5.5
 # Operators are single-, double-, or triple-character sequences and are used in expressions.
@@ -280,8 +281,8 @@ def get_tokens(lexer):
 
 
 def count_tokens_type(_tokens, _type):
-    _values = [token.value for token in _tokens]
-    return _values.count(_type)
+    _types = [token.type for token in _tokens]
+    return _types.count(_type)
 
 
 def check_tokens_type_all(_tokens, _type):
