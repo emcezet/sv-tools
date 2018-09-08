@@ -29,15 +29,13 @@ import ply.yacc as yacc
 import ply.lex as lex
 from SVLexer import *
 from SVParser import *
-from SVSyntax.sv_syntax_A_9_3 import *
-#from SVSyntax.sv_syntax_A_9_4 import *
-#from SVSyntax import *
+#from SVSyntax.sv_syntax_A_9_3 import *
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 
-class ut_sv_syntax_A_9_3(unittest.TestCase):
+class UtIdentifiers(unittest.TestCase):
 
     def test_p_module_identifier(self):
         logging.debug('test_p_module_identifier')

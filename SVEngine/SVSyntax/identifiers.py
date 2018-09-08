@@ -28,6 +28,7 @@ import ply.lex as lex
 
 #!/usr/bin/env python3
 
+
 # A.9.3 Identifiers
 # array_identifier ::= identifier
 # block_identifier ::= identifier
@@ -64,6 +65,8 @@ import ply.lex as lex
 # hierarchical_task_identifier ::= hierarchical_identifier
 # hierarchical_tf_identifier ::= hierarchical_identifier
 # hierarchical_variable_identifier ::= hierarchical_identifier
+
+
 # identifier ::=
 #   simple_identifier
 #   | escaped_identifier
@@ -77,6 +80,7 @@ import ply.lex as lex
 # member_identifier ::= identifier
 # method_identifier ::= identifier
 # modport_identifier ::= identifier
+
 
 # module_identifier ::= identifier
 def p_module_identifier(t):

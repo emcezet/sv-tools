@@ -30,9 +30,7 @@ from SVLexer import *
 logging.basicConfig(level=logging.DEBUG)
 
 
-
-
-class UtSVUtils(unittest.TestCase):
+class UtSystemverilogSourceText(unittest.TestCase):
 
     def test_comment_one_line(self):
         logging.debug('Start : test_comment_one_line.')
@@ -54,7 +52,6 @@ class UtSVUtils(unittest.TestCase):
             #logging.debug('self.lexstateinfo = ' + str(lexer_sv.lexstateinfo))
             #logging.debug('---')
             token = lexer_sv.token()
-
         result = False
         return result
 
@@ -62,8 +59,6 @@ class UtSVUtils(unittest.TestCase):
 if __name__ == '__main__':
 
     unittest.main()
-
-
 
 bparser = yacc.yacc()
 

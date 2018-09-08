@@ -26,7 +26,6 @@
 import ply.yacc as yacc
 import ply.lex as lex
 import SVLexer
-from SVSyntax.sv_syntax_A_9_3 import *
 
 def p_error(p):
     if not p:

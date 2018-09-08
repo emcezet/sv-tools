@@ -29,8 +29,6 @@
 # Notation 'From number.number' refers to section of this standard.
 
 import logging
-
-#import ply.lex as lex
 from ply.lex import *
 
 # From 5.2:
@@ -51,17 +49,20 @@ from ply.lex import *
 # token_ignore := space tab return_carriage new_line form_feed
 t_ignore = ' \t\r\n\f'
 
+
 # From 5.4
 # A one-line comment shall start with the two characters // and end with a newline character.
 def t_comment_one_line(t):
     r'//.*'
     return t
 
+
 # From 5.4
 # A block comment shall start with /* and end with */.
 def t_comment_block(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
+
 
 # From 5.5
 # Operators are single-, double-, or triple-character sequences and are used in expressions.
@@ -80,8 +81,6 @@ t_bxor = r'\^'
 t_bnxor = r'~\^'
 t_bxnor = r'\^~'
 # Binary operators
-# t_plus = r'\+' # Repeated in spec.
-# t_minus = r'-' # Repeated in spec.
 t_times = r'\*'
 t_divide = r'/'
 t_mod = r'%'
@@ -157,6 +156,7 @@ def t_identifier(t):
         t.type = t.value
     return t
 
+
 # Delimiters
 t_lparen = r'\('
 t_rparen = r'\)'
@@ -187,7 +187,6 @@ delimiters = (
 )
 
 # Assignment operators
-
 
 # Special char
 t_pound = r'\#'
@@ -253,9 +252,11 @@ def t_error(t):
     print('Illegal character' + t.value[0])
     t.lexer.skip(1)
 
+
 # Tokens
 tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
           'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst')
+
 
 SVLexer = lex()
 
@@ -267,6 +268,7 @@ SVLexer = lex()
 #        sys.stdout.write('(%s,%r,%d,%d)\n' % (tok.type, tok.value, tok.lineno, tok.lexpos))
 # I want to put these tokens in a list for testing purposes.
 
+
 def get_tokens(lexer):
     _tokens = []
     while True:
@@ -276,6 +278,12 @@ def get_tokens(lexer):
         _tokens.append(_token)
     return _tokens
 
-def count_tokens_type(_tokens_list, type):
-    _values = [token.value for token in _tokens_list]
-    return _values.count(type)
+
+def count_tokens_type(_tokens, _type):
+    _values = [token.value for token in _tokens]
+    return _values.count(_type)
+
+
+def check_tokens_type_all(_tokens, _type):
+    num_tokens = count_tokens_type(_tokens, _type)
+    return num_tokens == len(_tokens)

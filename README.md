@@ -6,11 +6,13 @@ First release expected Oct 2018.
 
 Tools for SystemVerilog HDL development.
 
+## Dependencies
+Python 3.6.5.
+
+ply-3.11  - Can be obtained via python3-pip.
+
 ## Setup
-
-Requires no installation.
-
-Python 3.6.5. 
+ 
 Tested on Windows Subsystem for Linux - Ubuntu 18.04.
 
 TODO: Run setup.py to update credentials: full name of the author and author's company for licensing templates.

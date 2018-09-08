@@ -29,14 +29,9 @@ from SVLexer import *
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def check_equal(list_a, list_b):
     return len(list_a) == len(list_b) and sorted(list_a) == sorted(list_b)
-
-def check_identifier_all(_tokens_list):
-    for _token in _tokens_list:
-        if _token.type != 'identifier':
-            return False
-    return True
 
 def test_routine_basic(test_text_sv = ''):
     SVLexer.input(test_text_sv)
@@ -45,19 +40,21 @@ def test_routine_basic(test_text_sv = ''):
     _values = [token.value for token in _tokens_list]
     return _tokens_list, _values
 
+
 class UtSVLexer(unittest.TestCase):
 
     def test_identifier(self):
-        _test_text_sv = 'A1 s22imple identifier shall be    any SEQUENCe of letters dig123its dollar signs$ und underscore_characters'
+        _test_text_sv = 'A1 s22imple identifier shall be    any SEQUENCe of letters dig123its dollar ' \
+                        'signs$ und underscore_characters'
         expected_list = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv = _test_text_sv)
-        self.assertTrue(check_identifier_all(_tokens_list))
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
+        self.assertTrue(check_tokens_type_all(_tokens_list, 'identifier'))
         self.assertTrue(check_equal(expected_list, _values))
 
     def test_comment_one_line(self):
         _test_text_sv = 'There are ids // This is a one line comment. We can use module keywords here. and or .'
         expected_result = '// This is a one line comment. We can use module keywords here. and or .'
-        _tokens_list ,_values = test_routine_basic(test_text_sv = _test_text_sv)
+        _tokens_list,_values = test_routine_basic(test_text_sv=_test_text_sv)
         self.assertEqual(expected_result, _values[-1])
 
     def test_comment_block(self):
@@ -67,7 +64,9 @@ class UtSVLexer(unittest.TestCase):
         self.assertEqual(expected_result, _values[-1])
         self.assertTrue(False)
 
+
     def test_operator(self):
+
         return True
 
     def test_newline(self):
@@ -83,6 +82,6 @@ class UtSVLexer(unittest.TestCase):
         self.assertTrue(len(_values) == 1)
         self.assertEqual(_values[0],expected_result)
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     unittest.main()
