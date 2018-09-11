@@ -91,22 +91,35 @@ non greedy regexps expansion */')
         self.assertEqual(2, count_tokens_type(_tokens_list, 'comment_block'))
         self.assertEqual(9, count_tokens_type(_tokens_list, 'identifier'))
 
-    def test_operator(self):
-
-        return True
-
-    def test_newline(self):
-        _test_text_sv = 'these are ids \n these ids are on NEW line'
-        expected_result = ''
+    def test_operators(self):
+        _test_text_sv = 'Valid Ops are + - ! ~ & ~& | ~| ^ ~^ * / % == != === =?= !?= && || **\
+                        < <= > >= >> << >>> <<< -> <-> ++ --'
+        expected_result = _test_text_sv.split()
         _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertTrue(False)
+        self.assertEqual(expected_result, _values)
+        self.assertEqual(3, count_tokens_type(_tokens_list, 'identifier'))
 
-    def test_literal_string(self):
-        _test_text_sv = ' "This is a valid module string" '
-        expected_result = 'This is a valid module string'
+    def test_delimiters(self):
+        _test_text_sv = 'Valid Delimiters are ( ) [ ] { } , . ; ` \''
+        expected_result = _test_text_sv.split()
         _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertTrue(len(_values) == 1)
-        self.assertEqual(_values[0],expected_result)
+        self.assertEqual(expected_result, _values)
+        self.assertEqual(3, count_tokens_type(_tokens_list, 'identifier'))
+
+    def test_number(self):
+        _test_text_sv = '0 1 2 3 4 5 6 7 8 9'
+        expected_result = _test_text_sv.split()
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
+        self.assertEqual(expected_result, _values)
+        self.assertEqual(10, count_tokens_type(_tokens_list, 'digit'))
+
+
+    # def test_literal_string(self):
+    #     _test_text_sv = ' "This is a valid module string" '
+    #     expected_result = 'This is a valid module string'
+    #     _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
+    #     self.assertTrue(len(_values) == 1)
+    #     self.assertEqual(_values[0], expected_result)
 
 
 if __name__ == '__main__':

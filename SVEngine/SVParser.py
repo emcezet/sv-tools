@@ -24,17 +24,17 @@
 
 
 import ply.yacc as yacc
-import ply.lex as lex
 import SVLexer
+from SVSyntax.identifiers import *
+from SVSyntax.systemverilog_source_text import *
+
 
 def p_error(p):
     if not p:
         print("SYNTAX ERROR AT EOF or sth went really bad.")
 
+
 tokens = SVLexer.tokens
-
-import profile
-
 sv_parser = yacc.yacc()
 
 
@@ -70,21 +70,21 @@ def parse(data, debug=0):
 #precedence = ()
 
 # From 11.2
-# An expression is a construct that combines operands with operators to produce a result that is a function of
-# the values of the operands and the semantic meaning of the operator. Any legal operand, such as a net bitselect, without any operator is considered an expression.
-# Wherever a value is needed in a SystemVerilog statement, an expression can be used.
-# An operand can be one of the following:
-# — Constant literal number, including real literals
-# — String literal
-# — Parameter, including local and specify parameters
-# — Parameter bit-select or part-select, including local and specify parameters
-# — Net (see 6.7)
-# — Net bit-select or part-select
-# — Variable (see 6.8)
-# — Variable bit-select or part-select
-# — Structure, either packed or unpacked
-# — Structure member
-# — Packed structure bit-select or part-select
+# # An expression is a construct that combines operands with operators to produce a result that is a function of
+# # the values of the operands and the semantic meaning of the operator. Any legal operand, such as a net bitselect, without any operator is considered an expression.
+# # Wherever a value is needed in a SystemVerilog statement, an expression can be used.
+# # An operand can be one of the following:
+# # — Constant literal number, including real literals
+# # — String literal
+# # — Parameter, including local and specify parameters
+# # — Parameter bit-select or part-select, including local and specify parameters
+# # — Net (see 6.7)
+# # — Net bit-select or part-select
+# # — Variable (see 6.8)
+# # — Variable bit-select or part-select
+# # — Structure, either packed or unpacked
+# # — Structure member
+# # — Packed structure bit-select or part-select
 # — Union, packed, unpacked, or tagged
 # — Union member
 # — Packed union bit-select or part-select
@@ -92,38 +92,3 @@ def parse(data, debug=0):
 # — Packed array bit-select, part-select, element, or slice
 # — Unpacked array element bit-select or part-select, element, or slice
 # — A call to a user-defined function, system-defined function, or method that returns any of the above
-
-# import logging
-# import os
-# import sys
-# import re
-#
-#
-# from SVUtils import *
-# from SVModule import *
-# from SVInterface import *
-
-
-# class SVParser:
-#
-#     def __init__(self):
-#         self.text = ''
-#         self.module = SVModule()
-#         self.interface = SVInterface()
-#
-#     def debug_display(self):
-#         class_name = str(self.__class__.__name__)
-#         logging.debug(class_name + ': Lines : ' + str(self.join_lines))
-#         self.module.debug_display()
-#         self.interface.debug_display()
-#
-#     def parse_file(self, file_path):
-#         lines_raw = read_lines_from_file(file_path)
-#         lines_no_empty = remove_lines_empty(lines_raw)
-#         lines_no_comment_slash = remove_comments_double_slash(lines_no_empty)
-#         lines_join = join_lines(lines_no_comment_slash)
-#         text_no_comment = remove_comments_slash_star(lines_join)
-#         text_no_module_body = remove_module_body(text_no_comment)
-#         self.text = text_no_module_body
-#         self.module = SVModule()
-#         self.interface = SVInterface()

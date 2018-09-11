@@ -28,8 +28,12 @@
 # A.1.2 SystemVerilog source text
 # source_text ::= [ timeunits_declaration ] { description }
 def p_source_text(t):
-    '''source_text : description'''
+    '''source_text : description
+                    | source_text description'''
 
+
+def p_source_text_2(t):
+    '''source_text : timeunits_declaration source_text '''
 
 # description ::=
 #   module_declaration
@@ -44,6 +48,7 @@ def p_description(t):
     '''description : module_declaration'''
 
 
+#| interface_declaration'''
 # module_nonansi_header ::=
 #   { attribute_instance } module_keyword [ lifetime ] module_identifier
 #       { package_import_declaration } [ parameter_port_list ] list_of_ports ;
@@ -67,7 +72,8 @@ def p_module_declaration(t):
 
 # module_keyword ::= module | macromodule
 def p_module_keyword(t):
-    '''module_keyword : module | macromodule'''
+    '''module_keyword : module
+                        | macromodule'''
 # interface_declaration ::=
 #   interface_nonansi_header [ timeunits_declaration ] { interface_item }
 #       endinterface [ : interface_identifier ]
@@ -128,12 +134,14 @@ def p_module_keyword(t):
 #   { attribute_instance } package [ lifetime ] package_identifier ;
 #   [ timeunits_declaration ] { { attribute_instance } package_item }
 #   endpackage [ : package_identifier ]
+
 # timeunits_declaration ::=
 #   timeunit time_literal [ / time_literal ] ;
 #   | timeprecision time_literal ;
 #   | timeunit time_literal ; timeprecision time_literal ;
 #   | timeprecision time_literal ; timeunit time_literal ;
-
+def p_timeunits_declaration(t):
+    ''' timeunits_declaration : time_identifier'''
 
 def p_error(t):
     if not t:

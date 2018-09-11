@@ -146,6 +146,7 @@ operators = (
     'dec'
     )
 
+
 # From 5.6
 # An identifier is used to give an object a unique name so it can be referenced. An identifier is either a simple
 # identifier or an escaped identifier (see 5.6.1). A simple identifier shall be any sequence of letters, digits,
@@ -187,13 +188,17 @@ delimiters = (
     'apostrophe'
 )
 
-# Assignment operators
-
 # Special char
 t_pound = r'\#'
 
 # Integer literal
-t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
+# t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
+
+#t_exp = r'[eE]'
+#t_non_zero_decimal_digit = r'[1-9]'
+#t_decimal_digit = r'[0-9]'
+#t_binary_digit = r'[0-9]'
+#t_digit = r'[0-9]'
 
 # Floating literal
 t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
@@ -202,9 +207,6 @@ t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
 # From A.8.8:
 # string_literal ::= " { Any_ASCII_Characters } "
 t_sconst = r'\"([^\\\n]|(\\.))*?\"'
-
-# Character constant 'c' or L'c'
-t_cconst = r'(L)?\'([^\\\n]|(\\.))*?\''
 
 # Keywords
 # From 5.6.2:
@@ -255,9 +257,10 @@ def t_error(t):
 
 
 # Tokens
+# tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
+#           'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst', 'number', 'digit')
 tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
-          'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst')
-
+          'comment_block') +  ( 'fconst', 'sconst', 'cconst', 'number', 'digit')
 
 SVLexer = lex()
 

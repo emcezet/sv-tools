@@ -86,6 +86,11 @@ import ply.lex as lex
 def p_module_identifier(t):
     '''module_identifier : identifier'''
 
+# This is made up by me to test ply.
+# time_identifier ::= identifier
+def p_time_identifier(t):
+    '''time_identifier : identifier'''
+
 # net_identifier ::= identifier
 # net_type_identifier ::= identifier
 # output_port_identifier ::= identifier

@@ -24,6 +24,7 @@
 
 import unittest
 import logging
+
 from ply.lex import *
 from SVLexer import *
 from SVParser import *
@@ -34,6 +35,8 @@ logging.basicConfig(level=logging.DEBUG)
 class UtSVParser(unittest.TestCase):
 
     def test_sth(self):
+        _test_text_sv = ' _time module adder1 endmodule module adder2 endmodule module adder3 endmodule'
+        sv_parser.parse(_test_text_sv, debug=1)
         return True
 
 
