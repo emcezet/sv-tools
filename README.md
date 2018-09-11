@@ -23,25 +23,16 @@ All scripts accept -h and --help for help messages constructed with argparse pac
 
 Scripts are supposed to accept a subset of SystemVerilog (most commonly used structures for synthesizable RTL):
 
-    new_mod.py  - generate new empty .sv file from template.
-    gen_inst.py - generate instantiation .sv file. (Append to end of file in VIM?) 
-    gen_top.py  - generate top file: top, instantiate submodules, connect them via interfaces.
-    gen_tb.py   - generate empty test file.
+    gen_mod.py  - generate new empty file from template.
+    gen_inst.py - generate instantiation file. 
+    gen_top.py  - generate top file.
+    gen_tb.py   - generate empty testbench file.
  
-Debug scripts:
-
-    _util.py     - utility for debugging
-    self_test.py - tests for scripts, which are very simple and will not be extended.
-
-
 ## SVEngine
 
-Engine is composed of following classes:
+Engine is composed of following modules:
 
-    SVModule    - xxx
-    SVInterface - xxx
-    SVParser    - xxx
-    SVSearch    - xxx
-    SVUtils     - xxx
+    SVLexer     - extension of ply.lexer
+    SVParser    - extension of ply.parser
 
 Unit tests were created with unittests module.

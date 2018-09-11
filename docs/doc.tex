@@ -11,6 +11,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{indentfirst}
 \usepackage{geometry}
+\usepackage{syntax}
+\usepackage{cite}
+
 \geometry{legalpaper, margin=1in}
 
 \title{SystemVerilog Tools in Python}
@@ -38,38 +41,66 @@ Documentation for SystemVerilog Tools project available at:
 \end{abstract}
 
 \section{Introduction}
-{ The goal of project is to develop a SystemVerilog (SV) parsing engine and
-provide scripts for simple module generation, instantiation in both
-named ports and interface modports styles. }
+{ The goal of project is to develop parsing engine for a subsystem of SystemVerilog (SV)
+Hardware Description Language (HDL) and provide following utility:
+\begin{itemize}
+    \item module generation from user-defined templates,
+    \item module instantiation from user file,
+    \item top level file generation from user files,
+    \item simple testbench file generation.
+\end{itemize}
+Both named port and interface style are accepted. }
 
 \section{Acceptable constructs in SystemVerilog.}
 
-\subsection{Module declaration.}
-{ The basic building block of SystemVerilog language is a module. Any SV module
-consists of a name, a list of parameters and a list of ports. An example is
-provided below: }
+\subsection{Formal syntax.}
+{ Formal syntax descriptions use Backus-Naur Form (BNF). This notation was also used in Annex A of \cite{standard}.
+Revised and limit list of supported constructs is provided in this section. Please note, that a specific coding
+style is expected from users. Curly brackets '\{' and '\}' denote one or more occurence and square '[' ']' denote optional.}
 
-\lstinputlisting[language = verilog]{../SVEngine/SVExamples/basic_module.sv}
+\begin{grammar}
+<source_text> ::= [timeunits_declaration] \{description\}
+\end{grammar}
+\begin{grammar}
+<description> ::= <module_declaration>
+                  \alt <interface_declaration>
+\end{grammar}
 
-{ Keywords \textbf{module} and \textbf{endmodule} are always at the start and
- the end of the module. After the keyword \textbf{module} a module name is given.
- It is optional to end the module declaration with \textbf{endmodule : module\_name}.
- The \textbf{\#} sign marks the beginning of list of parameters, which is comma separated.
- List of parameters is optional. An empty list is also accepted.}
+\begin{grammar}
+<module_declaration> ::= <module_nonansi_header> [ timeunits_declaration ] { module_item }
+<endmodule> [ : <module_identifier> ]
+\alt <module_ansi_header> [ timeunits_declaration ] { non_port_module_item }
+<endmodule> [ : module_identifier ]
+\end{grammar}
 
-{ Port list is also a comma separated list of entries. Each port requires direction
-and name. There are three supported directions: \textbf{input}, \textbf{output},
-\textbf{inout}. Bus signals have width encoded in square brackets. Interfaces are
-used via modports. The declaration is \textbf{interface\_name.modport\_name port\_name.} }
+\begin{grammar}
+<module_nonansi_header> ::= { attribute_instance } <module_keyword> [ lifetime ] <module_identifier>
+{ package_import_declaration } [ parameter_port_list ] <list_of_ports> ';'
+\end{grammar}
 
-{ SV supports C-style comments and macros. The only difference is that used macro
-requires a tick. Whitespaces are ignored.}
+\begin{grammar}
+<module_ansi_header> ::= { attribute_instance } <module_keyword> [ lifetime ] <module_identifier>
+{ package_import_declaration } [ parameter_port_list ] [ list_of_port_declarations ] ;
+\end{grammar}
 
-\subsection{Module instantiation.}
+\begin{grammar}
+<interface_declaration> ::= <>
+\end{grammar}
 
-\subsection{Interface declaration.}
+%\lstinputlisting[language = verilog]{../SVEngine/SVExamples/basic_module.sv}
+
 
 \section{Usage.}
 { All scripts support -h and --help parameters for usage help.}
 
+\begin{thebibliography}{9}
+\bibitem{standard}
+8299595,IEEE Std 1800-2017 (Revision of IEEE Std 1800-2012),IEEE Standard for SystemVerilog--Unified Hardware Design, Specification, and Verification Language,
+2018,Feb
+\bibitem{placeholder}
+placeholder
+
+\end{thebibliography}
+
 \end{document}
+
