@@ -191,23 +191,6 @@ delimiters = (
 # Special char
 t_pound = r'\#'
 
-# Integer literal
-# t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
-
-#t_exp = r'[eE]'
-#t_non_zero_decimal_digit = r'[1-9]'
-#t_decimal_digit = r'[0-9]'
-#t_binary_digit = r'[0-9]'
-#t_digit = r'[0-9]'
-
-# Floating literal
-t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
-
-# String literal
-# From A.8.8:
-# string_literal ::= " { Any_ASCII_Characters } "
-t_sconst = r'\"([^\\\n]|(\\.))*?\"'
-
 # Keywords
 # From 5.6.2:
 # All keywords are defined in lowercase only.
@@ -243,8 +226,44 @@ keywords = ( 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always
 'virtual', 'void', 'wait', 'wait_order', 'wand', 'weak', 'weak0', 'weak1',
 'while', 'wildcard', 'wire', 'with', 'within', 'wor', 'xnor', 'xor'
 )
+# From A.8.7
+
+# Integer literal
+# t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
+
+#t_exp = r'[eE]'
+#t_non_zero_decimal_digit = r'[1-9]'
+#t_decimal_digit = r'[0-9]'
+#t_binary_digit = r'[0-9]'
+#t_digit = r'[0-9]'
+
+# Floating literal
+t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
+
+# String literal
+# From A.8.8:
+# string_literal ::= " { Any_ASCII_Characters } "
+t_sconst = r'\"([^\\\n]|(\\.))*?\"'
+
+t_number = r't_integral_number | t_real_number'
+t_integral_number = r't_decimal_number | t_octal_number | t_binary_number | t_hex_number'
+
+t_decimal_number1 = r't_unsigned_number'
+t_decimal_number2 = r't_unsigned_number'
+t_decimal_number3 = r't_unsigned_number'
+t_decimal_number4 = r't_unsigned_number'
+t_decimal_number5 = r't_unsigned_number'
+t_decimal_number6 = r't_unsigned_number'
+t_decimal_number7 = r't_unsigned_number'
+
+t_size = r't_non_zero_unsigned_number'
+
+t_xdigit = r'[xX]'
+t_zdigit = r'[zZ\?]'
+t_unbased_unsized_literal = r'[\'0] | [\'1] | t_xdigit | t_zdigit'
 
 
+numbers = ('xdigit', 'zdigit', 'unbased_unsized_literal')
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
@@ -259,7 +278,7 @@ def t_error(t):
 # Tokens
 # tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
 #           'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst', 'number', 'digit')
-tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
+tokens = operators + keywords + delimiters + numbers + ('identifier', 'equals', 'pound', 'comment_one_line',
           'comment_block') +  ( 'fconst', 'sconst', 'cconst', 'number', 'digit')
 
 SVLexer = lex()
