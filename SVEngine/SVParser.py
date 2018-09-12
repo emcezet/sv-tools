@@ -25,8 +25,7 @@
 
 import ply.yacc as yacc
 import SVLexer
-from SVSyntax.identifiers import *
-from SVSyntax.systemverilog_source_text import *
+from SVEngine.SV2017 import *
 
 
 def p_error(p):

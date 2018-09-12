@@ -39,6 +39,36 @@ class UtSVParser(unittest.TestCase):
         sv_parser.parse(_test_text_sv, debug=1)
         return True
 
+    # def test_comment_one_line(self):
+    #     logging.debug('Start : test_comment_one_line.')
+    #     text_test_sv = '`define TOP 5 module module_name#(parameter = 8.5)(input clk); some text endmodule'
+    #     logging.debug('text_test_sv = ' + text_test_sv)
+    #     logging.debug('Create object lexer.')
+    #     lexer_sv = ply.lex.lex()
+    #     lexer_sv.input(text_test_sv)
+    #     logging.debug('self.lexdata = ' + str(lexer_sv.lexdata))
+    #     logging.debug('self.lexpos = ' + str(lexer_sv.lexpos))
+    #     logging.debug('self.lextokens = ' + str(lexer_sv.lextokens))
+    #     logging.debug('self.lexstateinfo = ' + str(lexer_sv.lexstateinfo))
+    #     logging.debug('---')
+    #     token = lexer_sv.token()
+    #     while token is not None:
+    #         logging.debug('token = ' + str(token))
+    #         #logging.debug('self.lexdata = ' + str(lexer_sv.lexdata))
+    #         #logging.debug('self.lexpos = ' + str(lexer_sv.lexpos))
+    #         #logging.debug('self.lexstateinfo = ' + str(lexer_sv.lexstateinfo))
+    #         #logging.debug('---')
+    #         token = lexer_sv.token()
+    #     result = False
+    #     return result
+    #
+    # def test_p_module_identifier(self):
+    #     logging.debug('test_p_module_identifier')
+    #     yacc.yaccdebug = True
+    #     sv_text = 'module name'
+    #     SVLexer.input(sv_text)
+    #     sv_parser.parse(sv_text)
+    #     return False
 
 if __name__ == '__main__':
     unittest.main()
