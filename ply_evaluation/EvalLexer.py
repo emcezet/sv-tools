@@ -24,52 +24,24 @@
 
 #
 # EvalLexer.py
-# IEEE Standard for SystemVerilog—Unified Hardware Design,Specification, and Verification Language
-# Downloaded from : https://ieeexplore.ieee.org/document/8299595/, on 05.09.2018
-# Notation 'From number.number' refers to section of this standard.
+#
 
-import logging
 from ply.lex import *
 
-# From 5.2:
-# The types of lexical tokens in the language are as follows:
-# White space
-# Comment
-# Operator
-# Number
-# String literal
-# Identifier
-# Keyword
-# * Maintain this order in this file.
-
-# From 5.3
-# White space shall contain the characters for spaces, tabs, newlines, and formfeeds. These characters shall be
-# ignored except when they serve to separate other lexical tokens.
-#
-# token_ignore := space tab return_carriage new_line form_feed
 t_ignore = ' \t\r\n\f'
 
 
-# From 5.4
-# A one-line comment shall start with the two characters // and end with a newline character.
 def t_comment_one_line(t):
     r'//.*'
     t.lexer.lineno += t.value.count('\n')
     return t
 
 
-# From 5.4
-# A block comment shall start with /* and end with */.
 def t_comment_block(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += t.value.count('\n')
     return t
 
-# From 5.5
-# Operators are single-, double-, or triple-character sequences and are used in expressions.
-# Defined in order in which they appear in standard.
-# b is for bitwise, l is for logical
-# Unary operators
 t_plus = r'\+'
 t_minus = r'-'
 t_lnot = r'!'
@@ -81,7 +53,6 @@ t_bnor = r'~\|'
 t_bxor = r'\^'
 t_bnxor = r'~\^'
 t_bxnor = r'\^~'
-# Binary operators
 t_times = r'\*'
 t_divide = r'/'
 t_mod = r'%'
@@ -104,54 +75,16 @@ t_arshift = r'>>>'
 t_alshift = r'<<<'
 t_impl = r'->'
 t_equiv = r'<->'
-# Inc or dec ops
 t_inc = r'\+\+'
 t_dec = r'--'
 
-operators = (
-    'plus',
-    'minus',
-    'lnot',
-    'bnot',
-    'band',
-    'bnand',
-    'bor',
-    'bnor',
-    'bxor',
-    'bnxor',
-    'bxnor',
-    'times',
-    'divide',
-    'mod',
-    'eq',
-    'ne',
-    'seq',
-    'nseq',
-    'weq',
-    'nweg',
-    'land',
-    'lor',
-    'pow',
-    'lt',
-    'nbass',
-    'gt',
-    'ge',
-    'rshift',
-    'lshift',
-    'arshift',
-    'alshift',
-    'impl',
-    'equiv',
-    'inc',
-    'dec'
-    )
+operators = ( 'plus', 'minus', 'lnot', 'bnot', 'band', 'bnand', 'bor', 'bnor',
+    'bxor', 'bnxor', 'bxnor', 'times', 'divide', 'mod', 'eq', 'ne',
+    'seq', 'nseq', 'weq', 'nweg', 'land', 'lor', 'pow', 'lt',
+    'nbass', 'gt', 'ge', 'rshift', 'lshift', 'arshift', 'alshift', 'impl',
+    'equiv', 'inc', 'dec' )
 
 
-# From 5.6
-# An identifier is used to give an object a unique name so it can be referenced. An identifier is either a simple
-# identifier or an escaped identifier (see 5.6.1). A simple identifier shall be any sequence of letters, digits,
-# dollar signs ($), and underscore characters (_).
-# Warning : first implementation will only accept simple identifiers.
 def t_identifier(t):
     r'[A-Za-z_][A-Za-z0-9_$]*'
     if t.value in keywords:
@@ -159,7 +92,6 @@ def t_identifier(t):
     return t
 
 
-# Delimiters
 t_lparen = r'\('
 t_rparen = r'\)'
 t_lbracket = r'\['
@@ -173,27 +105,12 @@ t_colon = r':'
 t_tick = r'`'
 t_apostrophe = r'\''
 
-delimiters = (
-    'lparen',
-    'rparen',
-    'lbracket',
-    'rbracket',
-    'lbrace',
-    'rbrace',
-    'comma',
-    'period',
-    'semi',
-    'colon',
-    'tick',
-    'apostrophe'
-)
+delimiters = ( 'lparen', 'rparen', 'lbracket', 'rbracket', 'lbrace', 'rbrace', 'comma', 'period',
+    'semi', 'colon', 'tick', 'apostrophe' )
 
-# Special char
+
 t_pound = r'\#'
 
-# Keywords
-# From 5.6.2:
-# All keywords are defined in lowercase only.
 keywords = ( 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always_latch', 'and', 'assert',
 'assign', 'assume', 'automatic', 'before', 'begin', 'bind', 'bins', 'binsof',
 'bit', 'break', 'buf', 'bufif0', 'bufif1', 'byte', 'case', 'casex',
@@ -224,11 +141,8 @@ keywords = ( 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always
 'triand', 'trior', 'trireg', 'type', 'typedef', 'union', 'unique', 'unique0',
 'unsigned', 'until', 'until_with', 'untyped', 'use', 'uwire', 'var', 'vectored',
 'virtual', 'void', 'wait', 'wait_order', 'wand', 'weak', 'weak0', 'weak1',
-'while', 'wildcard', 'wire', 'with', 'within', 'wor', 'xnor', 'xor'
-)
-# From A.8.7
+'while', 'wildcard', 'wire', 'with', 'within', 'wor', 'xnor', 'xor' )
 
-# Integer literal
 # t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
 
 #t_exp = r'[eE]'
@@ -248,14 +162,6 @@ t_sconst = r'\"([^\\\n]|(\\.))*?\"'
 t_number = r't_integral_number | t_real_number'
 t_integral_number = r't_decimal_number | t_octal_number | t_binary_number | t_hex_number'
 
-t_decimal_number1 = r't_unsigned_number'
-t_decimal_number2 = r't_unsigned_number'
-t_decimal_number3 = r't_unsigned_number'
-t_decimal_number4 = r't_unsigned_number'
-t_decimal_number5 = r't_unsigned_number'
-t_decimal_number6 = r't_unsigned_number'
-t_decimal_number7 = r't_unsigned_number'
-
 t_size = r't_non_zero_unsigned_number'
 
 t_xdigit = r'[xX]'
@@ -264,6 +170,7 @@ t_unbased_unsized_literal = r'[\'0] | [\'1] | t_xdigit | t_zdigit'
 
 
 numbers = ('xdigit', 'zdigit', 'unbased_unsized_literal')
+
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
@@ -281,15 +188,7 @@ def t_error(t):
 tokens = operators + keywords + delimiters + numbers + ('identifier', 'equals', 'pound', 'comment_one_line',
           'comment_block') +  ( 'fconst', 'sconst', 'cconst', 'number', 'digit')
 
-SVLexer = lex()
-
-# Let's add some utility to lex. Method runmain prints tokens via:
-# while True:
-#        tok = _token()
-#        if not tok:
-#            break
-#        sys.stdout.write('(%s,%r,%d,%d)\n' % (tok.type, tok.value, tok.lineno, tok.lexpos))
-# I want to put these tokens in a list for testing purposes.
+eval_lexer = lex()
 
 
 def get_tokens(lexer):
