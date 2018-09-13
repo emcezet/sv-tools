@@ -27,12 +27,12 @@ import logging
 
 from ply.lex import *
 from EvalLexer import *
-import EvalParser
+from EvalParser import *
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-class UtSVParser(unittest.TestCase):
+class UtEvalParser(unittest.TestCase):
 
     def test_grammar0(self):
         logging.debug('\n-------------- TEST START --------------')
@@ -50,6 +50,15 @@ class UtSVParser(unittest.TestCase):
         eval_parser.parse(_test_text_sv, debug=1)
         return True
 
+    def test_grammar2(self):
+        logging.debug('\n-------------- TEST START --------------')
+        grammar_num = 2
+        eval_parser = main(grammar_num)
+        _test_text_sv = ' 1 2 3 9 8 5 5 '
+        eval_parser.parse(_test_text_sv, debug=1)
+        print(str(parsed_digits))
+        print(str(all_digits))
+        return True
+
 if __name__ == '__main__':
     unittest.main()
-

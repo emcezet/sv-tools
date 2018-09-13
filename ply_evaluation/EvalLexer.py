@@ -40,8 +40,15 @@ def t_error(t):
     print('Illegal character' + t.value[0])
     t.lexer.skip(1)
 
-t_symbol = r'[a-zA-Z]'
-t_digit = r'[0-9]'
+def t_symbol(t):
+    r'[a-zA-Z]'
+    t.value = str(t.value)
+    return t
+
+def t_digit(t):
+    r'[0-9]'
+    t.value = int(t.value)
+    return t
 
 tokens = ('symbol', 'digit')
 
