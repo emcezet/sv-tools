@@ -30,147 +30,6 @@ from ply.lex import *
 
 t_ignore = ' \t\r\n\f'
 
-
-def t_comment_one_line(t):
-    r'//.*'
-    t.lexer.lineno += t.value.count('\n')
-    return t
-
-
-def t_comment_block(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
-    return t
-
-t_plus = r'\+'
-t_minus = r'-'
-t_lnot = r'!'
-t_bnot = r'~'
-t_band = r'&'
-t_bnand = r'~&'
-t_bor = r'\|'
-t_bnor = r'~\|'
-t_bxor = r'\^'
-t_bnxor = r'~\^'
-t_bxnor = r'\^~'
-t_times = r'\*'
-t_divide = r'/'
-t_mod = r'%'
-t_eq = r'=='
-t_ne = r'!='
-t_seq = r'===' # Strict equal = seq
-t_nseq = r'!==' # Not strict equal = nseq
-t_weq = r'=\?=' # Wildcard equality operator
-t_nweg = r'!\?=' # Wildcard not equality operator
-t_land = r'&&'
-t_lor = r'\|\|'
-t_pow = r'\*\*'
-t_lt = r'<'
-t_nbass = r'<=' # Non-blocking assignment
-t_gt = r'>'
-t_ge = r'>='
-t_rshift = r'>>'
-t_lshift = r'<<'
-t_arshift = r'>>>'
-t_alshift = r'<<<'
-t_impl = r'->'
-t_equiv = r'<->'
-t_inc = r'\+\+'
-t_dec = r'--'
-
-operators = ( 'plus', 'minus', 'lnot', 'bnot', 'band', 'bnand', 'bor', 'bnor',
-    'bxor', 'bnxor', 'bxnor', 'times', 'divide', 'mod', 'eq', 'ne',
-    'seq', 'nseq', 'weq', 'nweg', 'land', 'lor', 'pow', 'lt',
-    'nbass', 'gt', 'ge', 'rshift', 'lshift', 'arshift', 'alshift', 'impl',
-    'equiv', 'inc', 'dec' )
-
-
-def t_identifier(t):
-    r'[A-Za-z_][A-Za-z0-9_$]*'
-    if t.value in keywords:
-        t.type = t.value
-    return t
-
-
-t_lparen = r'\('
-t_rparen = r'\)'
-t_lbracket = r'\['
-t_rbracket = r'\]'
-t_lbrace = r'\{'
-t_rbrace = r'\}'
-t_comma = r','
-t_period = r'\.'
-t_semi = r';'
-t_colon = r':'
-t_tick = r'`'
-t_apostrophe = r'\''
-
-delimiters = ( 'lparen', 'rparen', 'lbracket', 'rbracket', 'lbrace', 'rbrace', 'comma', 'period',
-    'semi', 'colon', 'tick', 'apostrophe' )
-
-
-t_pound = r'\#'
-
-keywords = ( 'accept_on', 'alias', 'always', 'always_comb', 'always_ff', 'always_latch', 'and', 'assert',
-'assign', 'assume', 'automatic', 'before', 'begin', 'bind', 'bins', 'binsof',
-'bit', 'break', 'buf', 'bufif0', 'bufif1', 'byte', 'case', 'casex',
-'casez', 'cell', 'chandle', 'checker', 'class', 'clocking', 'cmos', 'config',
-'const', 'constraint', 'context', 'continue', 'cover', 'covergroup', 'coverpoint', 'cross',
-'deassign', 'default', 'defparam', 'design', 'disable', 'dist', 'do', 'edge',
-'else', 'end', 'endcase', 'endchecker', 'endclass', 'endclocking', 'endconfig', 'endfunction',
-'endgenerate', 'endgroup', 'endinterface', 'endmodule', 'endpackage', 'endprimitive', 'endprogram', 'endproperty',
-'endspecify', 'endsequence', 'endtable', 'endtask', 'enum', 'event', 'eventually', 'expect',
-'export', 'extends', 'extern', 'final', 'first_match', 'for', 'force', 'foreach',
-'forever', 'fork', 'forkjoin', 'function', 'generate', 'genvar', 'global', 'highz0',
-'highz1', 'if', 'iff', 'ifnone', 'ignore_bins', 'illegal_bins', 'implements', 'implies',
-'import', 'incdir', 'include', 'initial', 'inout', 'input', 'inside', 'instance',
-'int', 'integer', 'interconnect', 'interface', 'intersect', 'join', 'join_any', 'join_none',
-'large', 'let', 'liblist', 'library', 'local', 'localparam', 'logic', 'longint',
-'macromodule', 'matches', 'medium', 'modport', 'module', 'nand', 'negedge', 'nettype',
-'new', 'nexttime', 'nmos', 'nor', 'noshowcancelled', 'not', 'notif0', 'notif1',
-'null', 'or', 'output', 'package', 'packed', 'parameter', 'pmos', 'posedge',
-'primitive', 'priority', 'program', 'property', 'protected', 'pull0', 'pull1', 'pulldown',
-'pullup', 'pulsestyle_ondetect', 'pulsestyle_onevent', 'pure', 'rand', 'randc', 'randcase', 'randsequence',
-'rcmos', 'real', 'realtime', 'ref', 'reg', 'reject_on', 'release', 'repeat',
-'restrict', 'return', 'rnmos', 'rpmos', 'rtran', 'rtranif0', 'rtranif1', 's_always',
-'s_eventually', 's_nexttime', 's_until', 's_until_with', 'scalared', 'sequence', 'shortint', 'shortreal',
-'showcancelled', 'signed', 'small', 'soft', 'solve', 'specify', 'specparam', 'static',
-'string', 'strong', 'strong0', 'strong1', 'struct', 'super', 'supply0', 'supply1',
-'sync_accept_on', 'sync_reject_on', 'table', 'tagged', 'task', 'this', 'throughout', 'time',
-'timeprecision', 'timeunit', 'tran', 'tranif0', 'tranif1', 'tri', 'tri0', 'tri1',
-'triand', 'trior', 'trireg', 'type', 'typedef', 'union', 'unique', 'unique0',
-'unsigned', 'until', 'until_with', 'untyped', 'use', 'uwire', 'var', 'vectored',
-'virtual', 'void', 'wait', 'wait_order', 'wand', 'weak', 'weak0', 'weak1',
-'while', 'wildcard', 'wire', 'with', 'within', 'wor', 'xnor', 'xor' )
-
-# t_iconst = r'\d+([uU]|[lL]|[uU][lL]|[lL][uU])?'
-
-#t_exp = r'[eE]'
-#t_non_zero_decimal_digit = r'[1-9]'
-#t_decimal_digit = r'[0-9]'
-#t_binary_digit = r'[0-9]'
-#t_digit = r'[0-9]'
-
-# Floating literal
-t_fconst = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
-
-# String literal
-# From A.8.8:
-# string_literal ::= " { Any_ASCII_Characters } "
-t_sconst = r'\"([^\\\n]|(\\.))*?\"'
-
-t_number = r't_integral_number | t_real_number'
-t_integral_number = r't_decimal_number | t_octal_number | t_binary_number | t_hex_number'
-
-t_size = r't_non_zero_unsigned_number'
-
-t_xdigit = r'[xX]'
-t_zdigit = r'[zZ\?]'
-t_unbased_unsized_literal = r'[\'0] | [\'1] | t_xdigit | t_zdigit'
-
-
-numbers = ('xdigit', 'zdigit', 'unbased_unsized_literal')
-
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
@@ -181,12 +40,10 @@ def t_error(t):
     print('Illegal character' + t.value[0])
     t.lexer.skip(1)
 
+t_symbol = r'[a-zA-Z]'
+t_digit = r'[0-9]'
 
-# Tokens
-# tokens = operators + keywords + delimiters + ('identifier', 'equals', 'pound', 'comment_one_line',
-#           'comment_block') +  ( 'iconst', 'fconst', 'sconst', 'cconst', 'number', 'digit')
-tokens = operators + keywords + delimiters + numbers + ('identifier', 'equals', 'pound', 'comment_one_line',
-          'comment_block') +  ( 'fconst', 'sconst', 'cconst', 'number', 'digit')
+tokens = ('symbol', 'digit')
 
 eval_lexer = lex()
 

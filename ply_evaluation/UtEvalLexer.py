@@ -44,90 +44,19 @@ def test_routine_basic(test_text_sv = ''):
 
 class UtEvalLexer(unittest.TestCase):
 
-    def test_identifier(self):
-        _test_text_sv = 'A1 s22imple identifier shall be    any SEQUENCe of letters dig123its dollar ' \
-                        'signs$ und underscore_characters'
-        expected_list = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertTrue(check_tokens_type_all(_tokens_list, 'identifier'))
+    def test_symbol(self):
+        _test_text = 'A B C d g j j  g e e i'
+        expected_list = _test_text.split()
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text)
         self.assertTrue(check_equal(expected_list, _values))
+        self.assertEqual(11, count_tokens_type(_tokens_list, 'symbol'))
 
-    def test_comment_one_line(self):
-        _test_text_sv = 'There are ids // This is a one line comment. We can use module keywords here. and or .'
-        expected_result = []
-        expected_result.extend('There are ids'.split())
-        expected_result.append('// This is a one line comment. We can use module keywords here. and or .')
-        _tokens_list,_values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertEqual(expected_result, _values)
-        self.assertEqual(3,count_tokens_type(_tokens_list, 'identifier'))
-        self.assertEqual(1, count_tokens_type(_tokens_list, 'comment_one_line'))
-
-    # Do not modify this formatting.
-    def test_comment_block(self):
-        file = open('SVExamples/comment_block.sv','r')
-        _test_text_sv = file.read()
-        file.close()
-        expected_result = []
-        expected_result.extend('these are valid ids'.split())
-        expected_result.append('\
-/* A block comment started,\n\
-we can use any keywords here like and or module\n\
-and the comment may be very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-very very very very very very very very very very\n\
-long*/')
-        expected_result.extend('again these are valid ids\n'.split())
-        expected_result.append('\
-/* Another block comment started,to check for\n\
-non greedy regexps expansion */')
-        logging.debug(str(expected_result))
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertEqual(expected_result, _values)
-        self.assertEqual(2, count_tokens_type(_tokens_list, 'comment_block'))
-        self.assertEqual(9, count_tokens_type(_tokens_list, 'identifier'))
-
-    def test_operators(self):
-        _test_text_sv = 'Valid Ops are + - ! ~ & ~& | ~| ^ ~^ * / % == != === =?= !?= && || **\
-                        < <= > >= >> << >>> <<< -> <-> ++ --'
-        expected_result = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertEqual(expected_result, _values)
-        self.assertEqual(3, count_tokens_type(_tokens_list, 'identifier'))
-
-    def test_delimiters(self):
-        _test_text_sv = 'Valid Delimiters are ( ) [ ] { } , . ; ` \''
-        expected_result = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertEqual(expected_result, _values)
-        self.assertEqual(3, count_tokens_type(_tokens_list, 'identifier'))
-
-    def test_zdigit(self):
-        _test_text_sv = 'z Z ?'
-        expected_result = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        logging.debug(str(_tokens_list))
-        self.assertEqual(expected_result, _values)
-        self.assertEqual(3, count_tokens_type(_tokens_list, 'zdigit'))
-
-    def test_number(self):
-        _test_text_sv = '0 1 2 3 4 5 6 7 8 9'
-        expected_result = _test_text_sv.split()
-        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-        self.assertEqual(expected_result, _values)
-        #self.assertEqual(10, count_tokens_type(_tokens_list, 'digit'))
-
-
-    # def test_literal_string(self):
-    #     _test_text_sv = ' "This is a valid module string" '
-    #     expected_result = 'This is a valid module string'
-    #     _tokens_list, _values = test_routine_basic(test_text_sv=_test_text_sv)
-    #     self.assertTrue(len(_values) == 1)
-    #     self.assertEqual(_values[0], expected_result)
+    def test_digit(self):
+        _test_text = '0 1 2 3 4 5 6 7 8 9'
+        expected_list = _test_text.split()
+        _tokens_list, _values = test_routine_basic(test_text_sv=_test_text)
+        self.assertTrue(check_equal(expected_list, _values))
+        self.assertEqual(10, count_tokens_type(_tokens_list, 'digit'))
 
 
 if __name__ == '__main__':

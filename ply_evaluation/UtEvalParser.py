@@ -27,48 +27,29 @@ import logging
 
 from ply.lex import *
 from EvalLexer import *
-from SVParser import *
+import EvalParser
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 class UtSVParser(unittest.TestCase):
 
-    def test_sth(self):
-        _test_text_sv = ' _time module adder1 endmodule module adder2 endmodule module adder3 endmodule'
+    def test_grammar0(self):
+        logging.debug('\n-------------- TEST START --------------')
+        grammar_num = 0
+        eval_parser = EvalParser.main(grammar_num)
+        _test_text_sv = 'G'
         eval_parser.parse(_test_text_sv, debug=1)
         return True
 
-    # def test_comment_one_line(self):
-    #     logging.debug('Start : test_comment_one_line.')
-    #     text_test_sv = '`define TOP 5 module module_name#(parameter = 8.5)(input clk); some text endmodule'
-    #     logging.debug('text_test_sv = ' + text_test_sv)
-    #     logging.debug('Create object lexer.')
-    #     lexer_sv = ply.lex.lex()
-    #     lexer_sv.input(text_test_sv)
-    #     logging.debug('self.lexdata = ' + str(lexer_sv.lexdata))
-    #     logging.debug('self.lexpos = ' + str(lexer_sv.lexpos))
-    #     logging.debug('self.lextokens = ' + str(lexer_sv.lextokens))
-    #     logging.debug('self.lexstateinfo = ' + str(lexer_sv.lexstateinfo))
-    #     logging.debug('---')
-    #     token = lexer_sv.token()
-    #     while token is not None:
-    #         logging.debug('token = ' + str(token))
-    #         #logging.debug('self.lexdata = ' + str(lexer_sv.lexdata))
-    #         #logging.debug('self.lexpos = ' + str(lexer_sv.lexpos))
-    #         #logging.debug('self.lexstateinfo = ' + str(lexer_sv.lexstateinfo))
-    #         #logging.debug('---')
-    #         token = lexer_sv.token()
-    #     result = False
-    #     return result
-    #
-    # def test_p_module_identifier(self):
-    #     logging.debug('test_p_module_identifier')
-    #     yacc.yaccdebug = True
-    #     sv_text = 'module name'
-    #     eval_lexer.input(sv_text)
-    #     eval_parser.parse(sv_text)
-    #     return False
+    def test_grammar1(self):
+        logging.debug('\n-------------- TEST START --------------')
+        grammar_num = 1
+        eval_parser = EvalParser.main(grammar_num)
+        _test_text_sv = '2'
+        eval_parser.parse(_test_text_sv, debug=1)
+        return True
 
 if __name__ == '__main__':
     unittest.main()
+

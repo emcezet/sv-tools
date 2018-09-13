@@ -26,20 +26,38 @@
 import ply.yacc as yacc
 import EvalLexer
 
-
-def p_source_text(t):
-    '''source_text : description
-                    | source_text description'''
-
-
 def p_error(p):
     if not p:
-        print("SYNTAX ERROR AT EOF or sth went really bad.")
+        print("SYNTAX ERROR AT EOF.")
 
+def main(grammar_num):
+    if grammar_num == 0:
+        def p_A(t):
+            '''A : B'''
 
-tokens = EvalLexer.tokens
-eval_parser = yacc.yacc()
+        def p_B(t):
+            '''B : symbol'''
+    elif grammar_num == 1:
+        def p_A(t):
+            '''A : B'''
 
+        def p_B(t):
+            '''B : digit'''
+    elif grammar_num == 2:
+        def p_A(t):
+            '''A : B'''
+
+        def p_B(t):
+            '''B : digit'''
+    else:
+        def p_A(t):
+            '''A : B'''
+
+        def p_B(t):
+            '''B : symbol'''
+    tokens = EvalLexer.tokens
+    eval_parser = yacc.yacc()
+    return eval_parser
 
 def parse(data, debug=0):
     eval_parser.error = 0
