@@ -25,24 +25,26 @@
 import unittest
 import logging
 
-from ply.lex import *
-from SVLexer import *
-from SVParser import *
+from SVClasses import *
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-class UtSVParser(unittest.TestCase):
-
-    def test_sth(self):
-        _test_text_sv = ' _time module adder1 endmodule module adder2 endmodule module adder3 endmodule'
-        sv_parser.parse(_test_text_sv, debug=1)
-        return True
+class UtSVClasses(unittest.TestCase):
 
     def test_source_text(self):
-        descriptions = ['module one', 'module two', 'module three']
-        src_text = SourceText(descriptions)
-        print(str(src_text))
-
+        desc1 = Description([1,2,3,4],{'1':1,'2':2},'stringgg')
+        desc2 = Description({'1':1,'2':2})
+        # descriptions = [desc1, desc2]
+        # src_text = SourceText(descriptions)
+        # src_text2 = SourceText(descriptions, timeunits_declaration='some time')
+        # print(str(src_text))
+        # print(str(src_text2))
+        print(dir(desc1))
+        print('blah')
+        print(dir(type))
+        print(type([1,2,3,4]))
+        print(desc1.atr_dict)
+        print(str(desc1))
 if __name__ == '__main__':
     unittest.main()

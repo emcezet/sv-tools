@@ -22,27 +22,42 @@
 
 #!/usr/bin/env python
 
-import unittest
-import logging
+class SVObject(object):
+    def __init__(self):
+        pass
 
-from ply.lex import *
-from SVLexer import *
-from SVParser import *
+    def __str__(self):
+        return self.__class__.__name__
 
-logging.basicConfig(level=logging.DEBUG)
+    def __repr__(self):
+        return str(self)
 
+    def __nonzero__(self):
+        return False
 
-class UtSVParser(unittest.TestCase):
+class SourceText(SVObject):
+    def __init__(self,  descriptions, timeunits_declaration = None):
+        self.timeunits_declaration = timeunits_declaration
+        self.descriptions = descriptions
 
-    def test_sth(self):
-        _test_text_sv = ' _time module adder1 endmodule module adder2 endmodule module adder3 endmodule'
-        sv_parser.parse(_test_text_sv, debug=1)
+    def __str__(self):
+        return super().__str__() + ' ' + str(self.timeunits_declaration) + ' ' + str(self.descriptions)
+
+    def __nonzero__(self):
         return True
 
-    def test_source_text(self):
-        descriptions = ['module one', 'module two', 'module three']
-        src_text = SourceText(descriptions)
-        print(str(src_text))
+class Description(SVObject):
+    def __init__(self, *args):
+        for i in range(len(args)):
+            setattr(self,'atr_'+type(args[i]).__name__,args[i])
 
-if __name__ == '__main__':
-    unittest.main()
+    def __str__(self):
+        atr_list = dir(self)
+        val_list = []
+        for atr in atr_list:
+            if 'atr_' in atr:
+                val_list.append(getattr(self, atr))
+        return super().__str__() + str(val_list)
+
+    def __nonzero__(self):
+        return True

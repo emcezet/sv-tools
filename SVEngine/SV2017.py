@@ -27,6 +27,11 @@
 
 # A.1.2 SystemVerilog source text
 # source_text ::= [ timeunits_declaration ] { description }
+
+
+
+
+
 def p_source_text(t):
     '''source_text : description
                     | source_text description'''
