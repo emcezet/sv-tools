@@ -40,17 +40,32 @@ def t_error(t):
     print('Illegal character' + t.value[0])
     t.lexer.skip(1)
 
-def t_symbol(t):
-    r'[a-zA-Z]'
+
+def t_id(t):
+    r'[a-zA-z]+'
     t.value = str(t.value)
+    print('type(t_id) is ' + str(type(t)))
+    print('t.type is ' + str(t.type))
     return t
 
-def t_digit(t):
-    r'[0-9]'
+def t_number(t):
+    r'[0-9]+'
     t.value = int(t.value)
     return t
 
-tokens = ('symbol', 'digit')
+# def t_symbol(t):
+#     r'[a-zA-Z]'
+#     t.value = str(t.value)
+#     return t
+#
+# def t_digit(t):
+#     r'[0-9]'
+#     t.value = int(t.value)
+#     return t
+
+#tokens = ('symbol', 'digit')
+
+tokens = ('id', 'number')
 
 eval_lexer = lex()
 

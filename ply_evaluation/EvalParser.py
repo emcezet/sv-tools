@@ -26,8 +26,27 @@ import logging
 import ply.yacc as yacc
 import EvalLexer
 
+# As defined in yacc.py
+# p[0] === self.slice[n].value
+# There is no type getter
+# So use self.slice[n].type
+
 parsed_digits = []
 all_digits = []
+
+rule_a = []
+rule_b = []
+
+
+class MadeUpClass:
+    def __init__(self, data):
+        self.data = data
+
+    def __str__(self):
+        return  str(self.data)
+
+    def __repr__(self):
+        return '__str__:MadeUpClass.data = ' + str(self)
 
 def p_error(p):
     if not p:
@@ -63,7 +82,6 @@ def main(grammar_num):
             else:
                 pass
 
-
         def p_B(p):
             '''B : digit'''
             p[0] = p[1] # To propagate value
@@ -78,6 +96,30 @@ def main(grammar_num):
         def p_empty(p):
             '''empty : '''
             pass
+    elif grammar_num == 3:
+        def p_A(p):
+            ''' A : B
+                    | A B'''
+            # To append B in both alts
+            if len(p) == 2:
+                p[0] = p[1]
+                rule_a.append(p[1])
+            elif len(p) == 3:
+                p[0] = p[1],p[2]
+                #p[0] = p[2]
+                #rule_a.append( (p[1],p[2]) )
+        def p_B(p):
+            ''' B : id
+                    | number'''
+            data = (p.slice[1].value, p.slice[1].type)
+            made_up_object = MadeUpClass(data)
+            print(made_up_object)
+            #p[0] = (p[1],'B rule hit',p)
+            p[0] = made_up_object
+            print('This is a very special print, look at it!' + str(p.slice[0].value))
+            print('This is a very special print, look at it!' + str(p.slice[1].value))
+            print('This is a very special print, look at it!' + str(p.slice[1].type))
+            rule_b.append(p[0])
     else:
         def p_A(t):
             '''A : B'''

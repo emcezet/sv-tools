@@ -60,5 +60,18 @@ class UtEvalParser(unittest.TestCase):
         print(str(all_digits))
         return True
 
+    def test_grammar3(self):
+        logging.debug('\n-------------- TEST START --------------')
+        grammar_num = 3
+        eval_parser = main(grammar_num)
+        _test_text_sv = 'first 1 second 2 third'
+        test_var = eval_parser.parse(_test_text_sv, debug=1)
+        print(str(type(test_var)))
+        print(str(test_var))
+        print(str(rule_a))
+        print(str(rule_a[0]))
+        print(str(rule_b))
+        return True
+
 if __name__ == '__main__':
     unittest.main()

@@ -254,10 +254,6 @@ def p_time_identifier(t):
 # variable_identifier ::= identifier
 
 
-
-
-
-
 def p_error(t):
     if not t:
         print("SYNTAX ERROR AT EOF")
