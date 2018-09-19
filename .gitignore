@@ -1,5 +1,8 @@
 # Python
 *.pyc
+.idea/
+**/*parser.out
+**/*parsetab.py
 
 # Latex
 *.aux
